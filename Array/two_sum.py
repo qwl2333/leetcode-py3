@@ -1,3 +1,4 @@
+# lc 1
 from typing import List
 
 class Solution:
@@ -25,7 +26,7 @@ class Solution:
 
         for i in range(n):
             complement = target - nums[i]
-            if complement in value_to_index and i != value_to_index[complement]:
+            if complement in value_to_index and i != value_to_index[complement]: # i != value_to_index[complement] is to make sure it is not [3, 2, 4] target 6, we are not returning [0, 0]
                 return [i, value_to_index[complement]]
         
         return []
