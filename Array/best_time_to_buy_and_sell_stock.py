@@ -1,8 +1,7 @@
 # lc 121
-from typing import List
 
 class Solution:
-    def max_profit(self, prices: List[int]) -> int:
+    def max_profit(self, prices: list[int]) -> int:
         n = len(prices)
         max_profit = 0
         i = 0 # index to track the min value in prices, could be replaced with value instead of index

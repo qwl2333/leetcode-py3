@@ -1,9 +1,8 @@
 # lc 1
-from typing import List
 
 class Solution:
     # one iteration
-    def two_sum1(self, nums: List[int], target: int) -> List[int]: # self refers to the instance of the class that the method is being called on. 
+    def two_sum1(self, nums: list[int], target: int) -> list[int]: # self refers to the instance of the class that the method is being called on. 
         num_to_index = {} # map from value to index of nums
 
         n = len(nums)
@@ -17,7 +16,7 @@ class Solution:
         return []
     
     # two iterations
-    def two_sum2(self, nums: List[int], target: int) -> List[int]:
+    def two_sum2(self, nums: list[int], target: int) -> list[int]:
         value_to_index = {}
 
         n = len(nums)
@@ -34,4 +33,4 @@ class Solution:
 
 
 a = Solution()
-print(a.twoSum1([2, 7, 11, 15], 9))
+print(a.two_sum1([2, 7, 11, 15], 9))
