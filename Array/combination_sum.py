@@ -1,4 +1,7 @@
 # lc 39
+# https://leetcode.com/problems/combination-sum/solutions/742449/explanation-of-time-complexity/
+# Time complexity: O(N^(M/min_cand + 1)), N = len(candidates), M = target, min_cand = min(candidates)
+# Space complexity: O(M/min_cand)
 
 class Solution:
     def combination_sum(self, candidates: list[int], target: int) -> list[list[int]]:
