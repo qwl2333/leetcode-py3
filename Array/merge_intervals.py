@@ -4,7 +4,7 @@ class Solution:
     def merge(self, intervals: list[list[int]]) -> list[list[int]]:
         result = []
 
-        intervals.sort(key=lambda item : item[0])
+        intervals.sort(key=lambda item: item[0])
 
         start = intervals[0][0] # start end are used to create the merged interval for the result
         end = intervals[0][1]
