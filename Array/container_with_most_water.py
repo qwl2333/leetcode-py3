@@ -27,3 +27,6 @@ class Solution:
                 l += 1
         
         return max_area
+    
+a = Solution()
+print(a.maxArea2([1,8,6,2,5,4,8,3,7]))
