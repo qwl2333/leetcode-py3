@@ -21,3 +21,6 @@ class Solution:
             max_area = max(max_area, h * (len(heights) - i))
             
         return max_area
+
+a = Solution()
+print(a.largestRectangleArea([2, 1, 5, 6, 2, 3]))
