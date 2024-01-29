@@ -21,7 +21,7 @@ class Solution:
                     start = i - 1 - j
                 j += 1
         
-        return s[start : start + max_len]
+        return s[start:start + max_len]
     
 s = Solution()
 print(s.longestPalindrome('babad'))
