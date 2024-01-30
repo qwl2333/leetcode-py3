@@ -23,7 +23,7 @@ class Solution:
             l += 1
             if s_count == p_count:
                 res.append(l)
-    
+
         return res
 
 s = Solution()
