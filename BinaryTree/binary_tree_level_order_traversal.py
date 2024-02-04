@@ -9,6 +9,7 @@ class TreeNode:
         self.right = right
 
 class Solution:
+    # time O(n), space O(n/2) 假如是1，2，4，2^h - 总和为2^(h+1)，一共这么多节点，最多一层可以有2^h
     def levelOrder(self, root: Optional[TreeNode]) -> list[list[int]]:
         if not root:
             return []
