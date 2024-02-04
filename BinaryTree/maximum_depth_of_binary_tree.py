@@ -22,18 +22,17 @@ class Solution:
         if not root:
             return 0
         queue = deque([root])
-        num_nodes_level = 1 # counter to counter how many nodes each level
         levels = 0 # level counter starts from 0, whenever all nodes in that level poped out, increment counter by 1
         while queue:
-            cur = queue.popleft()
-            if cur.left:
-                queue.append(cur.left)
-            if cur.right:
-                queue.append(cur.right)
-            num_nodes_level -= 1
-            if num_nodes_level == 0:
-                num_nodes_level = len(queue)
-                levels += 1
+            num_nodes_level = len(queue) # counter to counter how many nodes each level
+            for i in range(num_nodes_level):
+                cur = queue.popleft()
+                if cur.left:
+                    queue.append(cur.left)
+                if cur.right:
+                    queue.append(cur.right)
+            levels += 1
+                
         return levels
 
 
