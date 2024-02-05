@@ -4,6 +4,10 @@
 
 class Solution:
     def firstBadVersion(self, n: int) -> int:
+        # Assume method beflow already exists
+        def isBadVersion(version: int) -> bool:
+            pass
+
         l, r = 1, n
         while l <= r:
             mid = (l + r) // 2
