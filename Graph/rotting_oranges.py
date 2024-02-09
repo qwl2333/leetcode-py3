@@ -1,6 +1,7 @@
 # lc 994
 from collections import deque
 class Solution:
+    # Multi source BFS
     # Time O(n * m) each cell visited once,  Space O(n * m) worst case all oranges are rotten, all of them need to added to queue
     def orangesRotting(self, grid: list[list[int]]) -> int:
         directions = [[0, 1], [1, 0], [0, -1], [-1, 0]]
