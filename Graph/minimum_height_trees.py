@@ -1,7 +1,8 @@
+# lc 310
 from collections import deque
 class Solution:
     # 类似topological sort的方法，把入度为1的叶子一轮一轮的裁剪，直到剩下<=2个节点时，就是剩下两个以内，
-    # 此题是tree，裁剪剩下的tree，一定只会剩下一个或者两个点
+    # 此题是tree，意味着所有点都是链接起来的，而且无环（因为无环连通图就是树），裁剪剩下的tree，一定只会剩下一个或者两个点
     # Time, space O(n + v) - n number of nodes, v number of edges
     def findMinHeightTreesTopo(self, n: int, edges: list[list[int]]) -> list[int]:
         if n == 1: 
