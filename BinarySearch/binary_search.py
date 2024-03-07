@@ -1,14 +1,15 @@
 # lc 704
 from math import floor
 class Solution:
+    # 找 upper bound
     def search(self, nums: list[int], target: int) -> int:
         l, r = 0, len(nums) - 1
 
         # 这是我随便试的代码，看到lc981之后试的例子，虽然可以ac lc704，但一般不这样写逼进的方法，在找out of range的数
         # 比如比最右大或者最左小，或者是找第一个目标或者最后一个目标时，用逼进的方法最好
         while l <= r:
-            mid = floor((l + r) / 2)
-            if nums[mid] <= target: # 这意味着从左边逼近目标，如果目标比最大（右）还打，那最接近的就是最后的nums[r]
+            mid = (l + r) // 2
+            if nums[mid] <= target: # 这意味着从左边逼近目标，如果目标比最大（右）还大，那最接近的就是最后的nums[r]
                 l = mid + 1
             else: # nums[mid] > target # 同理如果等号在这 nums[mid] >= target，就是从右边逼近目标，如果目标比最左还小，那最接近目标的就是nums[l]
                 r = mid - 1
