@@ -1,5 +1,6 @@
 # lc 162
 class Solution:
+    # Time - O(logn) n = len(nums), space O(1)
     def findPeakElement(self, nums: list[int]) -> int:
         l, r = 0, len(nums) - 1
 
