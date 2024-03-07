@@ -1,0 +1,22 @@
+# lc 162
+class Solution:
+    def findPeakElement(self, nums: list[int]) -> int:
+        l, r = 0, len(nums) - 1
+
+        while l <= r:
+            mid = (l + r) // 2
+            right_nb = nums[mid + 1] if mid < len(nums) - 1 else -float('inf')
+            left_nb = nums[mid - 1] if mid > 0 else -float('inf')
+            if left_nb < nums[mid] > right_nb:
+                return mid
+            elif nums[mid] > right_nb:
+                r = mid - 1
+            else: # nums[mid] <= right_nb
+                l = mid + 1
+
+        # Because Peak exists, the above code will catch any peak
+        # even if it might be the leftmost or rightmost element.
+        return -1
+
+s = Solution()
+print(s.findPeakElement([1,2,1,3,5,6,4]))
