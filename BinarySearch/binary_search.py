@@ -18,6 +18,37 @@ class Solution:
         
         # 切记，如果在mid 和target比较中加了等号，意味着在从左（右）逼近，那出来之后一定要判断是不是out of range
         return r if r >= 0 and nums[r] == target else -1
+    
+    # lower bound and upper bound, 意思是可以插入的lowest and highest position where the target could be inserted without breaking the order
+    # 1,2,3,3,4,5  lower bound是第一个>=3也就是第一个3（index 2），upper bound是第一个>3的数4（index 4）
+    # lower bound可以用来找第一个大于等于target，也可以用来找最后一个严格小于target，因为第一个大于等于target的前面一个就是<target的
+    # upper bound可以用来找第一个严格大于target，也可以用来找最后一个<=target的，因为第一个严格大于target的前一个就是最后一个<=target的
+
+    # 以下这个数lower bound找第一个可以>=target的位置
+    def lower_bound(self, nums: list[int], target: int) -> int:
+        n = len(nums)
+        l, r = 0, n - 1
+        while l <= r:
+            mid = (l + r) // 2
+            if nums[mid] >= target:
+                r = mid - 1
+            else: # nums[mid] < target
+                l = mid + 1
+        
+        return l # l-1 就是最后一个<target的位置
+
+    # 以下这个数upper bound找第一个可以>target的位置
+    def upper_bound(self, nums: list[int], target: int) -> int:
+        n = len(nums)
+        l, r = 0, n - 1
+        while l <= r:
+            mid = (l + r) // 2
+            if nums[mid] > target:
+                r = mid - 1
+            else: # nums[mid] <= target
+                l = mid + 1
+        
+        return r + 1 # r 其实就是最后一个<=target的位置
 
 s = Solution()
-print(s.search([0,1,9,9,9,9,9,9], 9)) # lc981 例子，假如timestamp target 是10，那应该返回9，此时l会一直前移，因为所有元素都小于10，直到l移出范围，此时应该返回的是r
+print(s.upper_bound([0,1,9,9,9,9,9,9], 9)) # lc981 例子，假如timestamp target 是10，那应该返回9，此时l会一直前移，因为所有元素都小于10，直到l移出范围，此时应该返回的是r
