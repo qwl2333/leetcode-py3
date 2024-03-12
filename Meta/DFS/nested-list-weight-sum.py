@@ -47,12 +47,12 @@ class Solution:
         self.count = 0
 
     # Time O(n), space worst case O(n), [1,[2,[3,[4]]]]
-    def depthSum(self, nestedList: list[NestedInteger]) -> int:
+    def depthSum(self, nestedList: list['NestedInteger']) -> int:
         for intg in nestedList:
             self.find_integers(intg, 1)
         return self.count
     
-    def find_integers(self, nested_integer: NestedInteger, depth: int):
+    def find_integers(self, nested_integer: 'NestedInteger', depth: int):
         if nested_integer.isInteger():
             self.count += nested_integer.getInteger() * depth
             return
