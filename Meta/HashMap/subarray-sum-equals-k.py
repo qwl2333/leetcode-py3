@@ -3,17 +3,16 @@ class Solution:
     # time O(n), space O(n)
     def subarraySum(self, nums: list[int], k: int) -> int:
         n = len(nums)
-        prefix_sum = [0 for i in range(n + 1)]
-        freq = {}
-        for i in range(1, n + 1):
-            prefix_sum[i] = prefix_sum[i - 1] + nums[i - 1]
-        
+        prefix_sum = 0
+        freq = {0 : 1}
+
         count = 0
-        for e in prefix_sum:
-            target = e - k
+        for i in range(n):
+            prefix_sum += nums[i] # 1,2,3
+            target = prefix_sum - k
             if target in freq:
                 count += freq[target]
-            freq[e] = freq.get(e, 0) + 1
+            freq[prefix_sum] = freq.get(prefix_sum, 0) + 1
         
         return count
 
