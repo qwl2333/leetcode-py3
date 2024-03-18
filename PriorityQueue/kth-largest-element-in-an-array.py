@@ -1,7 +1,7 @@
 # lc 215
 class Solution:
-    # 第一种是priority queue time O(nlogn)，
-    # 第二种是quick select
+    # 第一种是sorted this array, time O(nlogn)
+    # 第二种是quick select time O(n) space O（1）
     def findKthLargest(self, nums: list[int], k: int) -> int:
         # partion完成之后保证pivot index左边都小于pivot value
         def partition(left: int, right: int, nums: list[int]) -> int:
@@ -26,7 +26,7 @@ class Solution:
         # 假设每次partition取得值都是median，那每次partition都可以去掉一半的数组，所以加起来 N（1 + 1/2 + 1/4 + 1/8 ...） = 2N， 所以是O（n）理想状态下，实际是O（n） to O（nlogn）
         def quick_select(nums: list[int], start: int, end: int, k: int):
             if start > end:
-                return 
+                return
             pivot_index = partition(start, end, nums)
             if pivot_index == k:
                 return nums[pivot_index]
@@ -35,4 +35,4 @@ class Solution:
             else:
                 return quick_select(nums, start, pivot_index - 1, k)
     
-        return quick_select(nums, 0, len(nums) - 1,len(nums) - k)
+        return quick_select(nums, 0, len(nums) - 1, len(nums) - k)
