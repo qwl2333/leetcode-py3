@@ -10,9 +10,9 @@ class Solution:
             left_nb = nums[mid - 1] if mid > 0 else -float('inf')
             if left_nb < nums[mid] > right_nb:
                 return mid
-            elif nums[mid] > right_nb:
+            elif nums[mid] > right_nb: # 这意味着left_nb大于nums[mid]
                 r = mid - 1
-            else: # nums[mid] <= right_nb
+            else: # 意味着right_nb大于nums[mid]
                 l = mid + 1
 
         # Because Peak exists, the above code will catch any peak
