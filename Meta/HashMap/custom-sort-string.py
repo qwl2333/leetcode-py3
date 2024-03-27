@@ -13,7 +13,7 @@ class Solution:
                     res += c
                 del freq[c]
 
-        for k,v in freq.items():
+        for k, v in freq.items():
             for _ in range(v):
                 res += k
         
