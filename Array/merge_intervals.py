@@ -8,7 +8,7 @@ class Solution:
 
         start = intervals[0][0] # start end are used to create the merged interval for the result
         end = intervals[0][1]
-        for i in range(len(intervals)):
+        for i in range(1, len(intervals)):
             cur_start = intervals[i][0]
             cur_end = intervals[i][1]
             if cur_start <= end:
