@@ -1,6 +1,7 @@
 # lc 827
 from collections import deque
 class Solution:
+    # T O(n^2), S O(n^2) 这个图里面一共有n^2个nodes，无论bfs/dfs，最差情况每个都要遍历一遍
     def largestIsland(self, grid: list[list[int]]) -> int:
         n = len(grid)
         directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
@@ -47,6 +48,7 @@ class Solution:
         
         return res
 
+    # T O(n^2), S O(n^2)
     def largestIslandDFS(self, grid: list[list[int]]) -> int:
         n = len(grid)
         directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
