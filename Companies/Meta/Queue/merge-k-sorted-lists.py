@@ -8,13 +8,15 @@ class ListNode:
         self.next = next
 
 class Solution:
+    # edge case 要考虑 lists = [] 和 lists = [None]
     # merge k sorted lists using min heap
     # time O(nk*logk)   space O(k)   k: number of lists that need to be merged, n: average length of each list
     def mergeKLists(self, lists: list[Optional[ListNode]]) -> Optional[ListNode]:
         heap, res = [], ListNode()
         for i, list in enumerate(lists):
             if list:
-                heapq.heappush(heap, (list.val, i, list))
+                heapq.heappush(heap, (list.val, i, list)) # 加i进来是in case list.val一样，也可以id(list)来代替i
+                # heap的size不会超过k
 
         cur = res
         while heap:
