@@ -1,0 +1,69 @@
+# lc 31
+class Solution:
+    def nextPermutation(self, nums: list[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        """
+        从右往左边找到第一个k, nums[k] < nums[k + 1], 这样从[k+1:]到结尾都是descending的sequence,那这个数字一定是最大的
+        比如3',4',4,3, k=0, 4',4,3一定是最大的那个permutation
+        然后4',4,3 从右往左 找第一个比3'大的数, 和3'交换, 然后得到4,4',3',3, 再把[k+1:]的array reverse一下得到 4,3,3',4'就是我们要的答案
+        """
+
+        i = len(nums) - 1
+        while i > 0 and nums[i - 1] >= nums[i]: # go thru rightmost descending sequence
+            i -= 1
+        if i == 0:
+            nums.reverse()
+            return # all descending
+        
+        k = i - 1 # k is the position before rightmost descending sequence
+        j = len(nums) - 1 # j is to find the first element in right side that > nums[k]
+        while nums[j] <= nums[k]:
+            j -= 1
+        nums[j], nums[k] = nums[k], nums[j]
+
+        l, r = k + 1, len(nums) - 1
+        while l < r:
+            nums[l], nums[r] = nums[r], nums[l]
+            l += 1
+            r -= 1
+
+    # 二分找右边第一个 > nums[k]的
+    def nextPermutationBinarySearchSol(self, nums: list[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        i = len(nums) - 1
+        while i > 0 and nums[i - 1] >= nums[i]: # go thru rightmost descending sequence
+            i -= 1
+        if i == 0:
+            nums.reverse()
+            return # all descending
+        
+        k = i - 1 # k is the position before rightmost descending sequence
+        target = nums[k]
+        j = self.lower_bound(nums, k + 1, len(nums) - 1, target) - 1 # j is to find the first element in right side that > nums[k]
+        nums[j], nums[k] = nums[k], nums[j]
+
+        l, r = k + 1, len(nums) - 1
+        while l < r:
+            nums[l], nums[r] = nums[r], nums[l]
+            l += 1
+            r -= 1
+    
+    def lower_bound(self, nums, start, end, target): # find first <= target
+        while start <= end:
+            mid = (start + end) // 2
+            if nums[mid] <= target:
+                end = mid - 1
+            else: # nums[mid] > target
+                start = mid + 1
+        
+        return start
+
+
+s = Solution()
+nums = [3,4,4,3]
+s.nextPermutation(nums)
+print(nums)
