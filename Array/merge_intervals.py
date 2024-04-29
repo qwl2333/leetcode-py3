@@ -1,26 +1,26 @@
 # lc 56
 
 class Solution:
+    # T: O(n), S: worst case O(n) n -> len of intervals
     def merge(self, intervals: list[list[int]]) -> list[list[int]]:
-        result = []
+        intervals.sort(key=lambda i: i[0])
 
-        intervals.sort(key=lambda item: item[0])
+        res = []
 
-        start = intervals[0][0] # start end are used to create the merged interval for the result
-        end = intervals[0][1]
-        for i in range(1, len(intervals)):
-            cur_start = intervals[i][0]
-            cur_end = intervals[i][1]
-            if cur_start <= end:
-                end = max(end, cur_end)
-            else:
-                result.append([start, end])
-                start = cur_start
-                end = cur_end
-        
-        result.append([start, end])
+        cur_start = intervals[0][0]
+        cur_end = intervals[0][1]
+        i = 1
+        while i < len(intervals):
+            if intervals[i][0] <= cur_end:
+                cur_end = max(intervals[i][1], cur_end)
+            else: # intervals[i][0] > cur_end
+                res.append([cur_start, cur_end])
+                cur_start = intervals[i][0]
+                cur_end = intervals[i][1]
+            i += 1
 
-        return result
+        res.append([cur_start, cur_end])
+        return res
 
 a = Solution()
 print(a.merge([[1,3],[2,6],[8,10],[15,18]]))
