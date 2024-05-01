@@ -21,6 +21,7 @@ class Solution:
         if num_of_good_oranges == 0:
             return 0
 
+        num_of_oranges_transformed = 0
         while queue:
             size = len(queue)
             for i in range(size):
@@ -30,15 +31,14 @@ class Solution:
                     new_c = c + dc
                     if 0 <= new_r < n and 0 <= new_c < m and grid[new_r][new_c] == 1:
                         grid[new_r][new_c] = 2
+                        num_of_oranges_transformed += 1
                         queue.append((new_r, new_c))
             mins += 1
         
-        for i in range(n):
-            for j in range(m):
-                if grid[i][j] == 1:
-                    return -1
-        
-        return mins
+        if num_of_good_oranges == num_of_oranges_transformed:
+            return mins
+        else:
+            return -1
 
 s = Solution()
 
