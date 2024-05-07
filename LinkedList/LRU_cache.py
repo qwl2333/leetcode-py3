@@ -3,9 +3,12 @@
 # 避免了在remove node时要判断这个node前面还有没有节点，或者后面还有没有节点
 # 如果前面或者后面没节点了，就不能直接把当前node的前面和后面相连了
 # 不过有了dummy的head和tail之后可以保证永远前后有节点，就不用担心这个问题了
+
+# 第二个难点是记得append node的时候要更新self.map
+# 如果超了capacity pop from map的时候也要更新self.map
 class Node:
     def __init__(self, key: int, val: int):
-        self.key = key
+        self.key = key # key是必须的，因为在超了capacity，del node from map时，使用的是del self.map[self.head.next.key]
         self.val = val
         self.prev = None
         self.next = None
