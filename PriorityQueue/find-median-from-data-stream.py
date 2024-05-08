@@ -3,8 +3,11 @@ from heapq import heappush, heappop
 class MedianFinder:
 
     def __init__(self):
-        self.low = [] # max neg
-        self.high = [] # min
+        self.low = [] # maxheap store -(num)  low has smaller part of the stream
+        self.high = [] # minheap store (num)  high has bigger part of the stream
+        # [1,2,3,4,5,6,7]
+        # low:  4,3,2,1
+        # high: 5,6,7
 
     def addNum(self, num: int) -> None:
         if not self.low:
@@ -16,7 +19,7 @@ class MedianFinder:
         else:
             heappush(self.low, -num)
 
-        if len(self.low) - len(self.high) > 1:
+        if len(self.low) - len(self.high) > 1: # len(low) 要么和 len(high) 相等，要么多一个，否则就要rebalance
             heappush(self.high, -self.low[0])
             heappop(self.low)
         elif len(self.high) - len(self.low) > 0:
