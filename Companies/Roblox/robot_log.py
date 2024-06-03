@@ -25,7 +25,7 @@ class RobotLog:
                 res.add(id)
         return res
 
-    # return bots in (timestamp - ,timestamp]
+    # return bots in (timestamp - window_size,timestamp]
     def get_bots(self, timestamp: int, ip: str) -> list[str]:
         '''
             1. need a deque [timestamp, ip]
