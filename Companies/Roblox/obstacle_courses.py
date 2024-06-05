@@ -30,10 +30,15 @@ as the user can follow this path:
 
 Given a N x M grid representing the course, return whether or not the course is valid.
 这题不仅可以判断道路是不是通畅，还可以求出最少需要几步可以到目的地
+注意clarify 1,1,1是不是可以跳跃，还是必须要一步一步走
+这个对于能够到达没影响，因为1,1,1不管是一步一步走还是跳跃都能到
+但是对于步数有影响，以下解法算步数是基于1,1,1可以跳跃的情况
 '''
 from collections import deque
 
 class ObstacleCourses:
+    # Time: O(n + m)
+    # Space: O(n + m) ? 不太确定 一般bfs时间复杂度差不多就是空间复杂度
     def is_valid_course(self, courses: list[list[int]]) -> bool:
         n = len(courses)
         m = len(courses[0])
