@@ -4,32 +4,27 @@
 # Space complexity: O(M/min_cand)
 
 class Solution:
-    def combination_sum(self, candidates: list[int], target: int) -> list[list[int]]:
+    def combinationSum(self, candidates: list[int], target: int) -> list[list[int]]:
         candidates.sort()
-
+        n = len(candidates)
         combination = []
         result = []
-        self.find_combination_sum_helper(candidates, target, 0, combination, result)
 
-        return result
-
-    
-    def find_combination_sum_helper(self, candidates: list[int], remaining: int, start: int, combination: list[int], result: list[list[int]]) -> None:
-        n = len(candidates)
-        if start >= n or remaining < candidates[start]:
-            return
-        
-        for i in range(start, n):
-            if candidates[i] == remaining:
-                combination.append(candidates[i])
-                result.append(list(combination))
-                combination.pop()
+        def find_combination_sum_helper(remain: int, start_idx: int, path: list[int]) -> None:
+            if remain == 0:
+                result.append(list(path))
                 return
 
-            # remaining > candidates[i]
-            combination.append(candidates[i])
-            self.find_combination_sum_helper(candidates, remaining - candidates[i], i, combination, result)
-            combination.pop()
+            for i in range(start_idx, n):
+                if candidates[i] > remain:
+                    return
+
+                path.append(candidates[i])
+                find_combination_sum_helper(remain - candidates[i], i, path)
+                path.pop()
+
+        find_combination_sum_helper(target, 0, combination)
+        return result
 
 a = Solution()
-print(a.combination_sum([2,3,6,7], 7))
+print(a.combinationSum([2,3,6,7], 7))

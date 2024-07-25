@@ -5,7 +5,7 @@ class Solution:
     def maxArea(self, height: list[int]) -> int:
         n = len(height)
         max_area = 0
-        for l in range(0, n):
+        for l in range(0, n - 1):
             for r in range(l + 1, n):
                 area = min(height[l], height[r]) * (r - l)
                 max_area = max(area, max_area)
