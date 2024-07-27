@@ -6,8 +6,8 @@ class Solution:
     # The intuition behind the Moore's Voting Algorithm is based on the fact that if there is a majority element in an array, 
     # it will always remain in the lead, 
     # even after encountering other elements.
-    # 假如有四个2，三个3，两个1
-    # 2 2 2 2 3 3 3 1 1 为方便理解假如array恰好是sort的，只有在candidate = 2的情况下才可能有剩余，其他candidate剩余是不可能 > 0的
+    # 假如有四个2，两个3，一个1
+    # 2 2 2 2 3 3 1 为方便理解假如array恰好是sort的，只有在candidate = 2的情况下才可能有剩余，其他candidate剩余是不可能 > 0的
     def majority_element1(self, nums: list[int]) -> int:
         count = 0
         candidate = 0

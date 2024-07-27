@@ -1,6 +1,7 @@
 # lc 15
 
 class Solution:
+    # tc O(n^2) sc O(n)
     def threeSum(self, nums: list[int]) -> list[list[int]]:
         # sort之后才能用双指针
         nums.sort()

@@ -1,22 +1,22 @@
 # lc 238
 
 class Solution:
-    def product_except_self(self, nums: list[int]) -> list[int]:
+    def productExceptSelf(self, nums: list[int]) -> list[int]:
         size = len(nums)
-        prefix_product = [1] * size
-        suffix_product = [1] * size
-        result = [1] * size
+        prefix_product = [1 for _ in range(size + 1)]
+        suffix_product = [1 for _ in range(size + 1)]
+        result = [1 for _ in range(size)]
 
-        for i in range(1, size):
+        for i in range(1, size + 1):
             prefix_product[i] = prefix_product[i - 1] * nums[i - 1]
         
-        for i in range(size - 2, -1, -1):
-            suffix_product[i] = suffix_product[i + 1] * nums[i + 1]
+        for i in range(size - 1, -1, -1):
+            suffix_product[i] = suffix_product[i + 1] * nums[i]
 
         for i in range(0, size):
-            result[i] = prefix_product[i] * suffix_product[i]
+            result[i] = prefix_product[i] * suffix_product[i + 1]
         
         return result
     
 a = Solution()
-print(a.product_except_self([-1,1,0,-3,3]))
+print(a.productExceptSelf([-1,1,0,-3,3]))

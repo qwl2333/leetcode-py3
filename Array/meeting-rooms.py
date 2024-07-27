@@ -1,12 +1,16 @@
 # lc 252
 class Solution:
     def canAttendMeetings(self, intervals: list[list[int]]) -> bool:
+        n = len(intervals)
+        if n == 0:
+            return True
         intervals.sort(key=lambda i: i[0])
-        for i in range(len(intervals) - 1):
-            start_i, end_i = intervals[i]
-            start_i_next, end_i_next = intervals[i + 1]
-            if end_i > start_i_next:
+        prev_end = intervals[0][1]
+        for i in range(1, n):
+            if intervals[i][0] < prev_end:
                 return False
+            else:
+                prev_end = intervals[i][1]
 
         return True
 

@@ -1,4 +1,4 @@
-# lc 76
+# lc 75
 
 class Solution:
     def sortColors(self, nums: list[int]) -> None:
@@ -17,7 +17,19 @@ class Solution:
     
     def partition(self, nums: list[int], start: int, end: int) -> int:
         pivot_value = nums[end]
-        pivot_index = start
+        pivot_index = start # 当i经过的值比pivot_val小时，需要和pivot_index所在位置进行swap，所以pivot_index就是下一个可以进行swap的位置
+        '''
+        比如1,8,9,3,4',4  此时最后一个4是pivot value
+        那么i经过1时, 此时pivot idx和i处在同一个位置, swap完之后不变, pivot index前进一步, i前进一步
+           i经过8时, 此时pivot idx不动, 只移动i, 因为8>4, 8是一个需要之后被swap的位置, 什么时候swap, 直到下一个<4的出现, 进行swap
+           i经过9时, 此时pivot idx还在8的位置, 9>4, 仍然不同pivot idx只动i
+           i经过3时, 此时pivot idx还在8的位置, 3<4, 为了partition后所有小于4的都在左边, 
+             此时需要和pivot idx也就是8 swap, 此时array是1,3,9,8,4,4, pivot idx移动一位到9, i移动一位
+           i经过4'时, 4'并不是小于4的数, 所以partition的时候不用移动到左边,此时pivot idx在9
+        移动到4'时循环结束了
+        最后做一次swap, 此时array是 1,3,9,8,4',4 , 把pivot value 4和pivot idx 9 swap, 就可以得到partition后的结果
+        1,3,4,8,4',9
+        '''
         for i in range(start, end):
             if nums[i] < pivot_value:
                 self.swap(nums, i, pivot_index)
@@ -45,7 +57,7 @@ class Solution:
             elif num == 1:
                 ct1 += 1
             else:
-                ct2 += 2
+                ct2 += 1
 
         for i in range(len(nums)):
             if ct0 != 0:
@@ -56,10 +68,11 @@ class Solution:
                 ct1 -= 1
             else:
                 nums[i] = 2
-                ct2 -= 2
+                ct2 -= 1
     
     # one pass 用双指针
     # Dutch National Flag algorithm: sorting an array containing three distinct values
+    # 可以看neetcode
     def one_pass_sort(self, nums: list[int]) -> None:
         n = len(nums)
         next_zero = 0
