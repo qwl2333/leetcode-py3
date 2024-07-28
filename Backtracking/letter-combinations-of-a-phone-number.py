@@ -12,7 +12,7 @@ class Solution:
 
         def letterCombinationsHelper(idx: int, path: list[str]) -> list[str]:
             if idx == len(digits):
-                path_str = ''.join(path)
+                path_str = ''.join(path) # This join is O(n), that'ss why TC is O(n * 4^n)
                 combinations.append(path_str)
                 return
             
@@ -62,19 +62,17 @@ class Solution:
         res = []
 
         while queue:
-            size = len(queue)
-            for i in range(size):
-                cur_str, cur_index = queue.popleft()
-                next_idx = cur_index + 1
-                letters = phone[digits[next_idx]]
-                for letter in letters:
-                    new_str = cur_str + letter
-                    if len(new_str) == len(digits):
-                        res.append(new_str)
-                    else:
-                        queue.append((new_str, next_idx))
+            cur_str, cur_index = queue.popleft()
+            next_idx = cur_index + 1
+            letters = phone[digits[next_idx]]
+            for letter in letters:
+                new_str = cur_str + letter
+                if len(new_str) == len(digits):
+                    res.append(new_str)
+                else:
+                    queue.append((new_str, next_idx))
 
         return res
 
 s = Solution()
-print(s.letterCombinationsBackTracking('23'))
+print(s.letterCombinationsBFS('23'))

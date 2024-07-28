@@ -8,18 +8,18 @@ class Solution:
 
         visited = set()
         path = list()
-        self.all_perm = []
+        self.permutation_wanted = []
         self.counter = 0
 
         def permute_helper():
-            if len(self.all_perm) != 0:
+            if len(self.permutation_wanted) != 0:
                 return
 
             if len(path) == n:
                 if self.counter < k - 1:
                     self.counter += 1
                 else:
-                    self.all_perm = list(path)
+                    self.permutation_wanted = list(path)
                 return
 
             for num in nums:
@@ -34,7 +34,7 @@ class Solution:
 
         permute_helper()
 
-        str_arr = [str(e) for e in self.all_perm]
+        str_arr = [str(e) for e in self.permutation_wanted]
         return "".join(str_arr)
 
 s = Solution()

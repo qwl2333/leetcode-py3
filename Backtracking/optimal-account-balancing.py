@@ -1,4 +1,4 @@
-# lc time O(n!) because T(n) = n * T(n - 1), every recursion we run n iterations, each iteration it because T(n - 1), etc.
+# lc 465 time O(n!) because T(n) = n * T(n - 1), every recursion we run n iterations, each iteration it because T(n - 1), etc.
 from queue import PriorityQueue
 class Solution:
     def minTransfers(self, transactions: list[list[int]]) -> int:
