@@ -20,19 +20,15 @@ class TimeMap:
             values = self.store[key]
             return self.find_last_smaller_or_equal_then_target(values, timestamp)
 
-    def find_last_smaller_or_equal_then_target(self, values: list[tuple], target: int) -> str:
+    def find_last_smaller_or_equal_then_target(self, values: list[tuple], target: int) -> str: # upper bound 找最后一个<=target或者第一个>target
         l, r = 0, len(values) - 1
         while l <= r:
             mid = (l + r) // 2
             mid_timestamp = values[mid][0]
-            if mid_timestamp == target:
-                return values[mid][1]
-            elif mid_timestamp > target:
-                r = mid - 1
-            else:
+            if mid_timestamp <= target:
                 l = mid + 1
-
-        # 关于return r 还是 l，可以试试看在 lc 704里面跑一下例子就明白了
+            elif mid_timestamp > target:
+                r = mid - 1                
         if r >= 0:
             return values[r][1]
         else:
