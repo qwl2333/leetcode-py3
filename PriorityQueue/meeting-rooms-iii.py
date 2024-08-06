@@ -4,7 +4,7 @@ class Solution:
     # T: O(nlogn + mlogn) n - number of rooms, m - number of meetings
     # S: O(n) for heaps, two heaps will at most have n meetings inside
     def mostBooked(self, n: int, meetings: list[list[int]]) -> int:
-        meetings.sort()
+        meetings.sort(key=lambda m: m[0])
 
         available = [i for i in range(n)]
         heapify(available)
@@ -12,15 +12,18 @@ class Solution:
         count = [0 for _ in range(n)]
 
         for start, end in meetings:
+            # Finish meetings before start to find all available rooms
             while used and used[0][0] <= start: # is there any used room becoming available before or at current start time
                 _, room = heappop(used)
                 heappush(available, room)
             
+            # no room is available
             if not available:
                 end_time, room = heappop(used)
-                end = end_time + (end - start) # new end time
+                end = end_time + (end - start) # new end time because we need to delay current meeting
                 heappush(available, room)
             
+            # a room is available, schedule the meeing to that room
             room = heappop(available)
             heappush(used, (end, room))
             count[room] += 1

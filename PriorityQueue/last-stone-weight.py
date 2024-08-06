@@ -1,20 +1,19 @@
 # lc 1046
-from queue import PriorityQueue
+from heapq import heappop, heappush
 class Solution:
-    # Time O(nlogn) n - len of stones, Space O(n)
     def lastStoneWeight(self, stones: list[int]) -> int:
-        max_q = PriorityQueue()
+        max_q = []
         for stone in stones:
-            max_q.put((-stone, stone))
+            heappush(max_q, -stone)
         
-        while max_q.qsize() > 1:
-            _priority1, stone_val1 = max_q.get()
-            _priority2, stone_val2 = max_q.get()
-            stone_val1 -= stone_val2
-            if stone_val1 > 0:
-                max_q.put((-stone_val1, stone_val1))
+        while len(max_q) > 1:
+            stone1 = -heappop(max_q)
+            stone2 = -heappop(max_q)
+            remaining = abs(stone1 - stone2)
+            if remaining!= 0:
+                heappush(max_q, -remaining)
         
-        if max_q.empty():
+        if len(max_q) == 0:
             return 0
         else:
-            return max_q.queue[0][1]
+            return -max_q[0]

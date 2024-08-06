@@ -1,14 +1,17 @@
 # lc 973
-from queue import PriorityQueue
+from heapq import heappush, heappop
 class Solution:
-    # time O(nlogn) space O(n) n - len(points)
     def kClosest(self, points: list[list[int]], k: int) -> list[list[int]]:
-        min_q = PriorityQueue()
+        min_q = []
         for x, y in points:
-            min_q.put((x ** 2 + y ** 2, [x, y]))
+            distance = x ** 2 + y ** 2
+            heappush(min_q, (distance, [x, y]))
         
+        counter = 0
         res = []
-        for i in range(k):
-            res.append(min_q.get()[1])
+        while counter < k:
+            _d, coord = heappop(min_q)
+            res.append(coord)
+            counter += 1
         
         return res
