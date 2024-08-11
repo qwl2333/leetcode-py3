@@ -17,9 +17,6 @@ class Solution:
     
     # (1-2+3) or 1 - 2 + 3 
     def calculate_for_parenthese(self, stack: list) -> int:
-        if stack and stack[-1] == ')':
-            stack.pop()
-
         prev_num = 0
         count = 0
         sum = 0

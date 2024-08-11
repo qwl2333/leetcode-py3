@@ -4,7 +4,7 @@ class MinStack:
 
     def __init__(self):
         self.stack = []
-        self.min_stack = []
+        self.min_stack = [] # 单调的不严格递减的栈
 
     def push(self, val: int) -> None:
         self.stack.append(val)

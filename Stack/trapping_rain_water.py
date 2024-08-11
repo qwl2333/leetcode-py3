@@ -11,6 +11,7 @@ class Solution:
             left_max = self.get_max(height, 0, i)
             right_max = self.get_max(height, i, n - 1) # 为啥要左右都包含i，这样可以保证返回值一定>=height[i]，不会漏掉当前h就是左/右最高的情况，当然这种情况意味着0雨水
             sum += min(left_max, right_max) - h
+        return sum
     
     def get_max(self, height: list[int], start: int, end: int) -> int:
         max_h = 0
@@ -40,7 +41,7 @@ class Solution:
 
     # stack sol - time O(n) space O(n)
     def trap(self, height: list[int]) -> int:
-        stack = []
+        stack = [] # 单调不严格递减
         sum = 0
         for i, h in enumerate(height):
             if not stack:
