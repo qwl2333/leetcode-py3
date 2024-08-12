@@ -3,7 +3,7 @@ import math
 class Solution:
     def longestPalindrome(self, s: str) -> int:
         map = {}
-        even_char = set()
+        odd_chars = set()
         res = 0
 
         for char in s:
@@ -12,18 +12,18 @@ class Solution:
             else:
                 map[char] += 1
             if map[char] % 2 == 1:
-                even_char.add(char)
+                odd_chars.add(char)
             else:
-                if char in even_char:
-                    even_char.remove(char)
+                if char in odd_chars:
+                    odd_chars.remove(char)
 
-        if even_char:
-            first = even_char.pop()
-            res += map[first]
-            del map[first]
+        if odd_chars:
+            first = odd_chars.pop()
+            map[first] -= 1
+            res += 1
 
         for v in map.values():
-            res += math.floor(v / 2) * 2
+            res += (v // 2) * 2
         
         return res
     
@@ -50,6 +50,6 @@ class Solution:
         return len(s)
 
 s = Solution()
-print(s.longestPalindrome2('abbbfccccdd'))
+print(s.longestPalindrome('abbbfccccdd'))
             
         

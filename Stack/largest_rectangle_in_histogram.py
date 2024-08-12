@@ -7,7 +7,7 @@ class Solution:
     # 此题复杂，记住就好
     def largestRectangleArea(self, heights: list[int]) -> int:
         max_area = 0
-        stack = [] # pair: (index, height)
+        stack = [] # pair: (index, height) 非严格单调递增的栈
 
         for i, h in enumerate(heights):
             start = i
