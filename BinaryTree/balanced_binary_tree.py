@@ -17,7 +17,7 @@ class Solution:
         balanced, height = self.is_balanced_helper(root)
         return balanced
 
-    def is_balanced_helper(self, root: Optional[TreeNode]) -> (bool, int):
+    def is_balanced_helper(self, root: Optional[TreeNode]) -> (bool, int): # Tuple[bool, int]
         if root is None:
             return (True, 0)
     

@@ -1,5 +1,22 @@
 # lc 297
 # Definition for a binary tree node.
+'''
+ 其实 postorder和preorder也是一样的，serialize出来的序列一模一样，只是顺序相反，所以deserialize本质也是一样的
+ inorder出来的string为啥不可以deserialize，
+   1） 2 as the root and 1 as the right child
+   2） 1 as the root and 2 as the left child
+ 这两个inorder顺序一样，但是是两个不同的数
+ 4. 此题和lc 105类似，但是为啥lc 105需要两个顺序，因为105没有记录null，不知道叶子节点
+
+2
+  1     inorder: N 2 N 1 N   preorder: 2 N 1 N N    postorder: N N N 1 2
+
+
+  1     inorder: N 2 N 1 N   preorder: 1 2 N N N    postorder: N N 2 N 1
+2
+
+两个树的inorder serialization结果是一样的, 但是preorder 和 postorder都是可以区分的
+'''
 class TreeNode(object):
     def __init__(self, x):
         self.val = x
