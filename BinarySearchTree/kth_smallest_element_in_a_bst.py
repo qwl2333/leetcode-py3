@@ -13,18 +13,18 @@ class Solution:
         self.res = 0
 
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
-        def inorder_traverse(root: Optional[TreeNode]) -> bool:
+        def inorder_traverse(root: Optional[TreeNode]):
             if not root:
                 return
-            if self.i < k:
-                inorder_traverse(root.left)
+            if self.i > k:
+                return
+            inorder_traverse(root.left)
 
             self.i += 1
             if self.i == k:
                 self.res = root.val
 
-            if self.i < k:
-                inorder_traverse(root.right)
+            inorder_traverse(root.right)
         
         inorder_traverse(root)
         return self.res

@@ -1,5 +1,5 @@
 # lc 98
-from typing import Optional
+from typing import Optional, Tuple
 # Definition for a binary tree node.
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -17,7 +17,7 @@ class Solution:
                 return
             
             if not root:
-                return True
+                return
             
             inorder_traverse(root.left)
             if root.val > cur_val:
@@ -29,3 +29,22 @@ class Solution:
         
         inorder_traverse(root)
         return valid_bst
+
+    def isValidBST2(self, root: Optional[TreeNode]) -> bool:
+        MIN_VAL = -float('inf')
+        MAX_VAL = float('inf')
+        def is_valid_bst_helper(root: Optional[TreeNode]) -> Tuple[float, float, bool]:
+            if not root:
+                return (MAX_VAL, MIN_VAL, True)
+            
+            min_l, max_l, is_l_bst = is_valid_bst_helper(root.left)
+            min_r, max_r, is_r_bst = is_valid_bst_helper(root.right)
+            if is_l_bst and is_r_bst and max_l < root.val < min_r:
+                min_of_cur = min_l if min_l != MAX_VAL else root.val
+                max_of_cur = max_r if max_r != MIN_VAL else root.val
+                return (min_of_cur, max_of_cur, True)
+            else:
+                return (MAX_VAL, MIN_VAL, False)
+        
+        _min, _max, is_bst = is_valid_bst_helper(root)
+        return is_bst
