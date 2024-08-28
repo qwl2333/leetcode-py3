@@ -1,3 +1,4 @@
+# lc 126
 from collections import deque, defaultdict
 import string
 class Solution:

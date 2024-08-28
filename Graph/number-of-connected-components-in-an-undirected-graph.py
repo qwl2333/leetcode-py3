@@ -1,4 +1,7 @@
 # lc 323
+'''
+261 和 323 的区别是，261是找环，所以queue里面需要记录父节点，323是单纯的遍历所有可以遍历的节点， 所以不需要记录父节点信息
+'''
 from collections import deque
 class Solution:
     # Union find time O(n * m) n - number of nodes, m - number of edges, space O(n)

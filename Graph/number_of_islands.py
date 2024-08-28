@@ -19,6 +19,16 @@ class Solution:
                     if 0 <= new_x < n and 0 <= new_y < m and grid[new_x][new_y] == '1':
                         grid[new_x][new_y] = '0'
                         queue.append((new_x, new_y))
+
+        # dfs 方法 和 bfs差不多意思
+        def dfs(grid: List[List[str]], x: int, y: int):
+            grid[x][y] = '0'
+
+            for dx, dy in directions:
+                new_x = x + dx
+                new_y = y + dy
+                if 0 <= new_x < n and 0 <= new_y < m and grid[new_x][new_y] == '1':
+                    dfs(grid, new_x, new_y)
                 
         for i in range(n):
             for j in range(m):

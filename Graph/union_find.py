@@ -12,6 +12,10 @@ class UnionFind:
             return self.parents[x]
     
     def union(self, x: int, y: int):
-       self.parents[self.find(x)] = self.find(y)
-
-
+        root_x = self.find(x)
+        root_y = self.find(y)
+        if root_x == root_y: # 不能merge 两个集合，因为有环
+           return False
+        else:
+            self.parents[root_x] = root_y
+            return True

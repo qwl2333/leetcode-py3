@@ -3,6 +3,7 @@ from collections import deque
 class Solution:
     # BFS topological sort, time O(V + E) Vertex - numCourses, Edges - len(prerequisites), space O(V + E) because of adjacent list we created
     # Because we have to visit every vertex and every edge once
+    # 有向图有没有环，可以用拓扑排序
     def canFinish(self, numCourses: int, prerequisites: list[list[int]]) -> bool:
         indegree = [0 for _ in range(numCourses)]
         edges = [[] for _ in range(numCourses)]

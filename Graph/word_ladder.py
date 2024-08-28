@@ -1,3 +1,4 @@
+# lc 127
 from collections import deque
 class Solution:
     # BFS time O(n*m^2) n - len(wordList), m - len(word), 为何是m^2, 因为每个word，都有经过26次更换字母，26m，但是拼接新的word，还需要m，所以是26m^2
