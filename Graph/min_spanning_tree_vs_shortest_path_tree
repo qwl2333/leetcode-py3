@@ -1,0 +1,6 @@
+mst: 找一个mst sum of weights最小
+https://www.geeksforgeeks.org/prims-minimum-spanning-tree-mst-greedy-algo-5/#
+https://www.geeksforgeeks.org/kruskals-minimum-spanning-tree-algorithm-greedy-algo-2/
+
+spt: shortest path tree 每个点到到root的最小weight的路径，注意是每个点都可以找到最小路径，也可以用来找任意两点的shortest path
+比如 word ladder2就是个好例子，第一步bfs找到所有点到root的最小距离，第二步dfs就是找到所有的最小路径（从root到target）

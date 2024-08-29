@@ -1,4 +1,5 @@
 # lc 72
+# https://leetcode.com/problems/edit-distance/solutions/159295/python-solutions-and-intuition/
 class Solution:
     # time O(m*n) space 如果不考虑创造出来的新的string的话 O(m*n) n - len(word1), m - len(word2)
     def minDistance(self, word1: str, word2: str) -> int:
