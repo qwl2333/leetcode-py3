@@ -19,7 +19,7 @@ class Solution:
             if ((newi, newj) in visited
                 or newi == n or newj == m
                 or newi == -1 or newj == -1):
-                idx = (idx + 1) % 4
+                idx = (idx + 1) % 4 # 可以保证idx永远在0,1,2,3,0,1,2,3...循环
                 newi = i + dirs[idx][0]
                 newj = j + dirs[idx][1]
 
