@@ -16,7 +16,7 @@ class Solution:
         # partion完成之后保证pivot index左边都小于pivot value
         def partition(left: int, right: int, nums: list[int]) -> int:
             pivot_value = nums[right]
-            for r in range(left, right + 1):
+            for r in range(left, right):
                 if nums[r] < pivot_value:
                     nums[r], nums[left] = nums[left], nums[r]
                     left += 1

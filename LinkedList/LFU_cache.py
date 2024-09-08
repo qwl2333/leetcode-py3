@@ -3,6 +3,8 @@ class Node:
     def __init__(self, key, value):
         self.key = key # evicted node need to delete using this key from key_to_node
         self.value = value # get method need to return value
+        self.prev = None
+        self.next = None
         self.freq = 1 # we could remove this in the Node but that requires adding more parameter for _update_freq
 
 class DoublyLinkedList:
