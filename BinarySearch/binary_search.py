@@ -36,6 +36,7 @@ class Solution:
                 l = mid + 1
         
         return l # l-1=r 就是最后一个<target的位置，注意r有可能out of range 如果l是第一个元素, l是第一个>=target的位置
+                 # l也可能out of range, 如果所有元素都<taget
 
     # 以下这个数upper bound找第一个可以>target的位置
     def upper_bound(self, nums: list[int], target: int) -> int:

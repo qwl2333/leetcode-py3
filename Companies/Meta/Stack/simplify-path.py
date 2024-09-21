@@ -27,4 +27,4 @@ class Solution:
         return res if res != '' else '/'
 
 s = Solution()
-print(s.simplifyPath('/..a/...b/../.')) # /..a
+print(s.simplifyPath('/home/user/Documents/../Pictures')) # /..a

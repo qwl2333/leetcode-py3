@@ -8,6 +8,17 @@ class Solution:
             mid = (l + r) // 2
             right_nb = nums[mid + 1] if mid < len(nums) - 1 else -float('inf')
             left_nb = nums[mid - 1] if mid > 0 else -float('inf')
+            '''
+                    l_nb < mid > r_nb
+                    l_nb > mid < r_nb
+                    l_nb < mid < r_nb
+                    l_nb > mid > r_nb
+                    一共就四种可能
+                    第一种就是我们要的peak
+                    第二种mid是valley,证明左右肯定都有peak,因为左右的边界默认是无限小
+                    第三种上坡, left左移
+                    第四种下坡, right右移
+            '''
             if left_nb < nums[mid] > right_nb:
                 return mid
             elif nums[mid] > right_nb: # 这意味着left_nb大于nums[mid]

@@ -41,11 +41,12 @@
 #        Return None if this NestedInteger holds a single integer
 #        :rtype List[NestedInteger]
 #        """
-
+from collections import deque
 class Solution:
     def __init__(self):
         self.count = 0
 
+    # top down sol
     # Time O(n), space worst case O(n), [1,[2,[3,[4]]]]
     def depthSum(self, nestedList: list['NestedInteger']) -> int:
         for intg in nestedList:
@@ -59,3 +60,37 @@ class Solution:
         
         for intg in nested_integer.getList():
             self.find_integers(intg, depth + 1)
+
+    # bottom up sol
+    def depthSum2(self, nestedList: list['NestedInteger']) -> int:
+        def depthSumHelper(nestedList: list['NestedInteger'], depth: int) -> int:
+            sum = 0
+            for itg in nestedList:
+                if itg.isInteger():
+                    sum += itg.getInteger() * depth
+                else:
+                    sum += depthSumHelper(itg.getList(), depth + 1)
+            
+            return sum
+        
+        return depthSumHelper(nestedList, 1)
+    
+    # BFS
+    def depthSum3(self, nestedList: list['NestedInteger']) -> int:
+        q = deque()
+        res = 0
+        for itg in nestedList:
+            if itg.isInteger():
+                res += itg.getInteger()
+            else:
+                q.append((itg.getList(), 2))
+        
+        while q:
+            cur_list, cur_depth = q.popleft()
+            for itg in cur_list:
+                if itg.isInteger():
+                    res += itg.getInteger() * cur_depth
+                else:
+                    q.append((itg.getList(), cur_depth + 1))
+        
+        return res

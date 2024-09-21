@@ -1,6 +1,7 @@
 # lc 1249
 class Solution:
     # time O(n), space O(n)
+    # 重点是把s变成list，方便直接修改
     def minRemoveToMakeValid(self, s: str) -> str:
         s = list(s)
         stack = []
