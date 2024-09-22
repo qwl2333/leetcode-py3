@@ -3,10 +3,12 @@ class Solution:
     # 单调栈解法 time O(n), space O(n)
     def findBuildings(self, heights: list[int]) -> list[int]:
         stack = []
-        for idx, height in enumerate(heights):
-            while stack and heights[stack[-1]] <= height:
+        i = 0
+        while i < len(heights):
+            while stack and heights[i] >= heights[stack[-1]]:
                 stack.pop()
-            stack.append(idx)
+            stack.append(i)
+            i += 1
         return stack
 
 s = Solution()

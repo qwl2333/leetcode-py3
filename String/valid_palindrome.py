@@ -4,7 +4,7 @@ class Solution:
         s = s.lower()
         l, r = 0, len(s) - 1
         while l < r:
-            while l < r and not s[l].isalnum():
+            while l < r and not s[l].isalnum(): # isalnum = is alphanumeric 字母+数字
                 l += 1
             while l < r and not s[r].isalnum():
                 r -= 1
