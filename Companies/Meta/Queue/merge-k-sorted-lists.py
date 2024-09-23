@@ -15,8 +15,10 @@ class Solution:
         heap, res = [], ListNode()
         for i, list in enumerate(lists):
             if list:
-                heapq.heappush(heap, (list.val, i, list)) # 加i进来是in case list.val一样，也可以id(list)来代替i
-                # heap的size不会超过k
+                heapq.heappush(heap, (list.val, i, list)) # 加i进来是in case list.val一样，因为只放k个list,
+                                                          # 所以保证了i一定不一样, 不会出现i也一样的情况
+                                                          # 也可以id(list)来代替i
+                                                          # 所以heap的size不会超过k
 
         cur = res
         while heap:

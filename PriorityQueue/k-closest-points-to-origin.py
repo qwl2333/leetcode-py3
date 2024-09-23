@@ -1,17 +1,13 @@
 # lc 973
 from heapq import heappush, heappop
 class Solution:
+    # time O(nlogk) space O(k)
     def kClosest(self, points: list[list[int]], k: int) -> list[list[int]]:
-        min_q = []
+        max_q = []
         for x, y in points:
             distance = x ** 2 + y ** 2
-            heappush(min_q, (distance, [x, y]))
-        
-        counter = 0
-        res = []
-        while counter < k:
-            _d, coord = heappop(min_q)
-            res.append(coord)
-            counter += 1
-        
-        return res
+            heappush(max_q, (-distance, x, y))
+            if len(max_q) > k:
+                heappop(max_q)
+
+        return [[x, y] for _neg_d, x, y in max_q]

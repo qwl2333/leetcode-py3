@@ -1,26 +1,8 @@
 # lc 347
-from queue import PriorityQueue
 from heapq import heappush, heappop
 class Solution:
-    # worst case T: O(nlogn) 此时 n - len(nums), k = n， S: O(n)
-    def topKFrequent(self, nums: list[int], k: int) -> list[int]:
-        pq = PriorityQueue()
-
-        freq = {}
-        for num in nums:
-            freq[num] = freq.get(num, 0) + 1
-        
-        for num, f in freq.items():
-            pq.put((-f, num))
-        
-        res = []
-        for i in range(k):
-            res.append(pq.get()[1])
-        
-        return res
-
     # time O(logk*n), space O(n)
-    def topKFrequent2(self, nums: list[int], k: int) -> list[int]:
+    def topKFrequent(self, nums: list[int], k: int) -> list[int]:
         min_heap = []
         freq = {}
         for num in nums:

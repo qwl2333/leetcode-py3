@@ -1,7 +1,7 @@
 # lc 215
 from heapq import heappop, heappush
 class Solution:
-    # 第一种是priority queue, time O(nlogk)
+    # 第一种是priority queue, time O(nlogk), space O(k) min_q max needs k
     def findKthLargest(self, nums: list[int], k: int) -> int:
         min_q = []
         for num in nums:
@@ -11,7 +11,10 @@ class Solution:
         
         return min_q[0]
 
-    # 第二种是quick select time O(n) space O（1）
+    # 第二种是quick select time avg O(n) wst O(n^2)   
+    # space 考虑栈内存wst case O(n), avg O(logn), 不考虑应该是O(1)
+    # 假设每次partition取得值都是median，那每次partition都可以去掉一半的数组，所以加起来 N（1 + 1/2 + 1/4 + 1/8 ...） = 2N， 
+    # 所以是O（n）理想状态下，实际是O（n） to O（n^2）worst case: pivot chosen is always the the largest element
     def findKthLargest2(self, nums: list[int], k: int) -> int:
         # partion完成之后保证pivot index左边都小于pivot value
         def partition(left: int, right: int, nums: list[int]) -> int:
@@ -30,11 +33,10 @@ class Solution:
             pivot_index = partition(start, end, nums)
             quick_sort(nums, start, pivot_index - 1)
             quick_sort(nums, pivot_index + 1, end)
-    
-        # 无序list里面, sort完后的list[k]，注意k指的是从小到大sorted的list的index=k的，不是第k个, 应该是
-        # 第k+1个，而且不是第k+1大,而是第k+1小的那个
-        # quick select O(n)   space O（1）
-        # 假设每次partition取得值都是median，那每次partition都可以去掉一半的数组，所以加起来 N（1 + 1/2 + 1/4 + 1/8 ...） = 2N， 所以是O（n）理想状态下，实际是O（n） to O（n^2）worst case: pivot chosen is always the the largest element
+
+        # 无序list里面, quck select, 选取的是从小到大sorted的list的index=k的数，
+        # 因为index is 0 based. 所以不是第k小的数, 应该是第k+1小的数
+        # 所以如果是选第k大的，实际上是选index = len(nums) -k 小的数
         def quick_select(nums: list[int], start: int, end: int, k: int):
             if start > end:
                 return

@@ -3,7 +3,6 @@
 class Solution:
     # tc O(n^2) sc O(n)
     def threeSum(self, nums: list[int]) -> list[list[int]]:
-        # sort之后才能用双指针
         nums.sort()
         result = []
         n = len(nums)
@@ -13,7 +12,8 @@ class Solution:
             if i > 0 and nums[i] == nums[i - 1]:
                 continue
 
-            # 本质上是在[i+1，n-1]里面找target， 可以两个nested的for loop遍历所有可能，当因为sorted，只需要双指针来找
+            # 本质上是在[i+1，n-1]里面找两个数之和是target， 可以两个nested的for loop遍历所有可能O(n^2), 
+            # 也可以sort nums, 然后只需要双指针l,r 从外往里找nums[l]+nums[r] = target
             target = -nums[i]
 
             l = i + 1 # 为什么是永远从当前位置后一个开始找，因为result不允许重复，
