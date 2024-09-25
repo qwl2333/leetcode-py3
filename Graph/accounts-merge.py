@@ -3,8 +3,11 @@ from collections import defaultdict
 class Solution:
     # time O(v + e) v: 节点数应该是 len(accounts) + # of unique email address, e: 边数应该是总共的# of email address
     def accountsMerge(self, accounts: list[list[str]]) -> list[list[str]]:
-        # 每个account都是一个数字节点， start from 0
+        # 每个account都是一个节点， start from 0
         # 同时每一个email也是一个节点，如果有相同的email，证明通过这个相同的email，两个数字节点相通了
+        # 此时所有的account点和email点组成了一个图
+        # account 可以直接找到email的邻居 因为accounts里面有
+        # 但是email的account邻居需要先构建出来
         email_to_accounts = defaultdict(list)
         for i, account in enumerate(accounts):
             for j in range(1, len(account)):

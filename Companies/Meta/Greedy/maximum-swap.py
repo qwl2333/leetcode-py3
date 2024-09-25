@@ -1,5 +1,7 @@
 # lc 670
 class Solution:
+    # 和31 next permutation做区分, 31是找下一个排列刚好大于num，所以是尽可能小
+    # 670是一次swap,尽可能的大
     # T: O(n), S: O(n)
     def maximumSwap(self, num: int) -> int:
         num_str = list(str(num)) # ['2','1','3','2']
@@ -44,7 +46,7 @@ class Solution:
             if maxVal <= numList[j]: # 注意这里的等号，要找最右的最大值 2999，肯定是找最右的那个9
                 maxIdx, maxVal = j, numList[j]
 
-        # Going right from i, find left-most value that is less than maxVal
+        # Going left from i, find left-most value that is less than maxVal
         leftIdx = i
         for j in range(i, -1, -1):    
             if numList[j] < maxVal: # 肯定要严格小于maxVal,相等没有swap的意义

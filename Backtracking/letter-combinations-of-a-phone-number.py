@@ -52,7 +52,8 @@ class Solution:
 
         return letterCombinationsHelper(digits)
 
-    # bfs sol O(number of combinations)
+    # 这个是最优解, backtracking 可以不看
+    # bfs sol O(number of combinations) O(4^n) 每个digit最多四种选择, 想像成树就是树有四个孩子, 那么树有多高呢, 就是digits的长度n, 所以一共有O(4^n)个节点
     def letterCombinationsBFS(self, digits: str) -> list[str]:
         if not digits:
             return []

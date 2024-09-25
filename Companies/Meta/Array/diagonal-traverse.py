@@ -26,3 +26,6 @@ class Solution:
                     r += 1
                     c -= 1
         return res
+
+s = Solution()
+print(s.findDiagonalOrder([[1,2,3],[4,5,6],[7,8,9]]))

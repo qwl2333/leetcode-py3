@@ -7,6 +7,9 @@ class Node:
 
 class Solution:
     # Time O(n), space O(1) n - length of linked list
+    # 需要考虑head为none的情况
+    # 需要考虑所有点都是同一个值的情况
+    # 需要考虑所有点都小于或者都大于insert val的情况
     def insert(self, head: 'Optional[Node]', insertVal: int) -> 'Node':
         new_node = Node(insertVal)
         if not head:

@@ -19,6 +19,22 @@ class Solution:
     def findKthLargest2(self, nums: list[int], k: int) -> int:
         return self.quick_select(nums, 0, len(nums) - 1, len(nums) - k)
 
+    '''
+    Iterative way for quick select
+    面试的时候用iterative的quick select, 因为空间复杂度为O(1)
+    def quick_select(nums: list[int], start: int, end: int, k: int) -> int:
+        while start <= end:   
+            pivot_idx = partition(nums, start, end)
+            if pivot_idx == k:
+                return nums[pivot_idx]
+            elif pivot_idx > k:
+                end = pivot_idx - 1
+            else:
+                start = pivot_idx + 1
+        
+        return 10001
+    ''' 
+
     def quick_select(self, nums: list[int], start: int, end: int, k: int):
         if start > end:
             return 10001
@@ -30,7 +46,8 @@ class Solution:
             return self.quick_select(nums, start, pivot_idx - 1, k)
         else:
             return self.quick_select(nums, pivot_idx + 1, end, k)
-        
+    
+    # partion完成之后保证pivot index左边都小于pivot value
     def partition(self, nums: list[int], start: int, end: int):
         pivot_value = nums[end]
         pivot_idx = start
