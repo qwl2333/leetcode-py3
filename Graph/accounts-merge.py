@@ -39,4 +39,57 @@ class Solution:
         return res
 
     # 也可以利用union find数据结构来做
+    # Time O((n + e) * a(n)) n - number of accounts, e - number of emails
+    def accountsMergeUnionFind(self, accounts: list[list[str]]) -> list[list[str]]:
+        email_to_account = {}
+        uf = UnionFind(len(accounts))
+        for account_id, account in enumerate(accounts):
+            for j in range(1, len(account)):
+                email = account[j]
+                if email not in email_to_account:
+                    email_to_account[email] = account_id
+                else:
+                    uf.union(account_id, email_to_account[email])
 
+        group_by_account = defaultdict(list)
+        for email, account_id in email_to_account.items():
+            main_account = uf.find(account_id)
+            group_by_account[main_account].append(email)
+        
+        res = []
+        for main_account_id, emails in group_by_account.items():
+            name = accounts[main_account_id][0]
+            data = [name]
+            data.extend(sorted(emails))
+            res.append(data)
+        return res
+
+class UnionFind:
+    def __init__(self, size):
+        self.parents = [i for i in range(size)]
+        self.ranks = [1] * size
+
+    def find(self, x):
+        root = x
+        while root != self.parents[root]:
+            root = self.parents[root]
+        
+        while x != root:
+            parent = self.parents[x]
+            self.parents[x] = root
+            x = parent
+        
+        return root
+    
+    def union(self, x, y):
+        root_x = self.find(x)
+        root_y = self.find(y)
+        if root_x != root_y:
+            if self.ranks[root_x] > self.ranks[root_y]:
+                self.parents[root_y] = root_x
+            elif self.ranks[root_x] < self.ranks[root_y]:
+                self.parents[root_x] = root_y
+            else:
+                self.parents[root_x] = root_y
+                self.ranks[root_y] += 1
+        
