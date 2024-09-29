@@ -46,24 +46,38 @@ class Solution:
 
     def validTreeUnionFind(self, n: int, edges: list[list[int]]) -> bool:
         parents = [i for i in range(n)]
+        ranks = [1 for i in range(n)]
         num_of_components = n
 
-        def find_parent(parents: list[int], i): # time O(n) n - number of nodes
-            if parents[i] == i:
-                return i
-            else:
-                return find_parent(parents, parents[i])
+        # 看起来是O(n), 实际上最后会变成O(1)
+        def find_parent(parents: list[int], i):
+            root = i
+            while root != parents[root]:
+                root = parents[root]
+            
+            while i != root:
+                parent = parents[i]
+                parents[i] = root
+                i = parent
+            
+            return root
         
         for e in edges:
             p1 = find_parent(parents, e[0])
             p2 = find_parent(parents, e[1])
             if p1 != p2: # 可以用来找环，p1 == p2 证明有环
-                parents[p1] = p2
+                if ranks[p1] > ranks[p2]:
+                    parents[p2] = p1
+                elif ranks[p1] < ranks[p2]:
+                    parents[p1] = p2
+                else:
+                    parents[p1] = p2
+                    ranks[p2] += 1
                 num_of_components -= 1
             else:
                 return False
 
-        return num_of_components == 1
+        return num_of_components == 1 # 无环,因为还剩一个component
     
 
 from collections import deque
