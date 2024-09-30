@@ -25,6 +25,14 @@ class Solution:
 
             for i in range(idx + 1, n):
                 if debts[idx] * debts[i] < 0: # only settle debts[idx] with opposite value
+                    # debts[idx]会把自己的债先消掉, 转嫁给debts[i], 所以对debts[idx]的backtracking也已经包含在这了                  
+                    # temp = debts[idx]
+                    # debts[idx] -= temp
+                    # debts[i] += temp
+                    # dfs_to_settle(idx + 1, steps + 1)
+                    # debts[idx] += temp
+                    # debts[i] -= temp
+
                     debts[i] += debts[idx]
                     dfs_to_settle(idx + 1, steps + 1)
                     debts[i] -= debts[idx]

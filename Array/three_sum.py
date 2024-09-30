@@ -3,7 +3,7 @@
 class Solution:
     # tc O(n^2) sc O(n)
     def threeSum(self, nums: list[int]) -> list[list[int]]:
-        nums.sort()
+        nums.sort() # sort 之后 双指针可以跳过重复的triplet
         result = []
         n = len(nums)
 

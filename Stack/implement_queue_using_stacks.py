@@ -16,7 +16,7 @@ class MyQueue:
         self.stack1.append(x)
 
     def pop(self) -> int:
-        while len(self.stack1) > 0:
+        while len(self.stack1) > 0: # 必须要一次性全从in 到 out, 如果只放一个, 后面如果有新的push进来, 顺序就乱了
             self.stack2.append(self.stack1.pop())
         res = self.stack2.pop()
         self.top_of_queue = self.stack2[-1] if len(self.stack2) > 0 else None

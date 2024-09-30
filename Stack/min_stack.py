@@ -8,7 +8,7 @@ class MinStack:
 
     def push(self, val: int) -> None:
         self.stack.append(val)
-        if len(self.min_stack) == 0 or val <= self.min_stack[-1]:
+        if len(self.min_stack) == 0 or val <= self.min_stack[-1]: # 为什么相等要放进去,因为可能最小值有多个
             self.min_stack.append(val)
 
     def pop(self) -> None:

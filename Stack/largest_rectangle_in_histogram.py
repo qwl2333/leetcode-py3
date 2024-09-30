@@ -13,9 +13,11 @@ class Solution:
             start = i
             while stack and stack[-1][1] > h: #这里>=或者>都可以pass，但是方便理解 h必须严格小于top of stack，这意味着top of stack的height的矩形右边边界找到了
                 index, height = stack.pop() # 每次pop完都要计算pop出来的height可以得到的最大居心
-                max_area = max(max_area, height * (i - index)) # i是左边界，i所在的h是严格小于pop出的height的，你可能好奇为啥是i-index，假如stack是（0，5），（1，5‘），当前i是2，h是3，这次pop（1，5’），可以得出当前5‘为高，左边从1开始到i=2位置但不含2的矩形面积5，下次还会pop （0， 5），就是以5为高，从0开始到i=2但不含2的矩形面积10，所以相等的情况也不会漏掉
-                start = index
-            stack.append((start, h))
+                max_area = max(max_area, height * (i - index)) # i是当前h的右边界，i所在的h是严格小于pop出的height的，你可能好奇为啥是i-index，假如stack是（0，5），（1，5‘），当前i是2，h是3，这次pop（1，5’），可以得出当前5‘为高，左边从1开始到i=2位置但不含2的矩形面积5，下次还会pop （0， 5），就是以5为高，从0开始到i=2但不含2的矩形面积10，所以相等的情况也不会漏掉
+                start = index # 所有pop出来的height都是严格大于h的,意味着start可以不同向右移动
+            stack.append((start, h)) # 当前的h从start开始往左延展直到i, 如果后面的h更大, 那还能继续延展
+                                     # 但是因为stack里面height<=h的, 意味着这个矩形也可能可以往右延展, 但是面积的计算只管当前的pop出来的index到最右的边界
+                                     # 之前的就算可以延展也要等到pop出来再计算
         
         for i, h in stack:
             max_area = max(max_area, h * (len(heights) - i))

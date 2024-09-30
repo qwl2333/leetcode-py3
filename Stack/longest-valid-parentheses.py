@@ -16,5 +16,27 @@ class Solution:
         
         return max_len
 
+    # t O(n) s O(n)
+    def longestValidParenthesesDP(self, s: str) -> int:
+        n = len(s)
+        if n < 2:
+            return 0
+
+        dp = [0 for _ in range(n)]
+        if s[0] == '(' and s[1] == ')':
+            dp[1] = 2
+        else:
+            dp[1] = 0
+
+        for i in range(2, n):
+            if s[i] == ')':
+                if s[i - 1] == '(':
+                    dp[i] = dp[i - 2] + 2
+                else: # s[i - 1] == ')':
+                    if i - 1 - dp[i - 1] >= 0 and s[i - 1 - dp[i - 1]] == '(':
+                        dp[i] = dp[i - 1] + 2 + (dp[i - 2 - dp[i - 1]] if i - 2 - dp[i - 1] >= 0 else 0)
+        
+        return max(dp)
+
 s = Solution()
 print(s.longestValidParentheses('))()(())'))
