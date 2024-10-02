@@ -1,4 +1,4 @@
-# 1539
+# lc 1539 类似 lc 1060
 # https://leetcode.com/problems/kth-missing-positive-number/solutions/779999/java-c-python-o-logn/
 # 看第一个评论by ryz
 '''
