@@ -1,6 +1,7 @@
 # lc 227
 class Solution:
     # time O(n) s O(n)
+    # 不是最优解别背
     def calculate(self, s: str) -> int:
         stack, cur_num, prev_op = [], 0, '+' # cur_num是记录连续数字的，起始值为0，默认的previous operator也是+, 为什么呢？
                                               # 如果是‘3-2*2', 那么到'-'时因为cur_num初始为0，可以得到3，其他初始值得不到3, prev_op='+', 会把3加到stack里面去
@@ -38,7 +39,9 @@ class Solution:
 
     sum + prev_num = 3 + (-2) = 1
     '''
-
+    # 背这个最优解
+    # 如果只是+-, 其实每次遇到operator时根据prev_op和cur_num计算就行, 不需要额外的prev_num
+    # prev_num 纯粹是为了*/
     def calculate2(self, s: str) -> int:
         sum = 0
         prev_num = 0
@@ -59,7 +62,7 @@ class Solution:
                 elif prev_op == '*':
                     prev_num *= cur_num
                 elif prev_op == '/':
-                    prev_num =  int(prev_num / cur_num)
+                    prev_num = int(prev_num / cur_num)
                 cur_num = 0
                 prev_op = c
 

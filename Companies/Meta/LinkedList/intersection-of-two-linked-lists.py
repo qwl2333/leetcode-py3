@@ -1,4 +1,4 @@
-# lc 160
+# lc 160 和 lc 1650 lcaiii 类似
 from typing import Optional
 # Definition for singly-linked list.
 class ListNode:

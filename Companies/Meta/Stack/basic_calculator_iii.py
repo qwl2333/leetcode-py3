@@ -91,7 +91,58 @@ class Solution:
             return sum(stack)
         
         return calculate_helper(q)
+    
+    # 再优化省掉stack
+    # t O(n)  s O(n)
+    def calculate3(self, s: str) -> int:
+        q = deque()
+        for c in s + '+':
+            if c == ' ':
+                continue
+            else:
+                q.append(c)
+        
+        def calculate_helper(q: deque) -> int:
+            sum = 0
+            prev_num = 0
+            cur_num = 0
+            prev_op = '+'
 
+            while q:
+                c = q.popleft()
+                if c == '(':
+                    cur_num = calculate_helper(q)
+                elif c.isdigit():
+                    cur_num = cur_num * 10 + int(c)
+                elif c == ')':
+                    if prev_op == '+':
+                        sum += prev_num
+                        prev_num = cur_num
+                    elif prev_op == '-':
+                        sum += prev_num
+                        prev_num = -cur_num
+                    elif prev_op == '*':
+                        prev_num *= cur_num
+                    elif prev_op == '/':
+                        prev_num = int(prev_num / cur_num)
+                    break
+                else:
+                    if prev_op == '+':
+                        sum += prev_num
+                        prev_num = cur_num
+                    elif prev_op == '-':
+                        sum += prev_num
+                        prev_num = -cur_num
+                    elif prev_op == '*':
+                        prev_num *= cur_num
+                    elif prev_op == '/':
+                        prev_num = int(prev_num / cur_num)
+                    cur_num = 0
+                    prev_op = c
+                
+            return sum + prev_num
+        
+        return calculate_helper(q)
 
 s = Solution()
 print(s.calculate2('5-(3+2)*5+3'))

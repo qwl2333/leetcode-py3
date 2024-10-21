@@ -1,6 +1,6 @@
-# lc 1650
+# lc 1650 和 lc160 intersection of two linkedlists类似
 """
-# Definition for a Node.
+和 lc236 lca的区别是node 定义不同, 这个有parent
 
 """
 class Node:

@@ -79,11 +79,7 @@ class Solution:
     def depthSum3(self, nestedList: list['NestedInteger']) -> int:
         q = deque()
         res = 0
-        for itg in nestedList:
-            if itg.isInteger():
-                res += itg.getInteger()
-            else:
-                q.append((itg.getList(), 2))
+        q.append((nestedList, 1))
         
         while q:
             cur_list, cur_depth = q.popleft()
