@@ -66,7 +66,7 @@ class Solution:
                     cur_num = calculate_helper(q)
                 elif c.isdigit():
                     cur_num = cur_num * 10 + int(c)
-                elif c == ')': # 和 basci calculator ii 最大的不同就是)结束之后要把之前的operation处理完放进stack里进去
+                elif c == ')': # 这个的作用有点像dummy operator +, 再多计算一次
                     if prev_op == '+':
                         stack.append(cur_num)
                     elif prev_op == '-':
@@ -75,7 +75,7 @@ class Solution:
                         stack.append(stack.pop() * cur_num)
                     elif prev_op == '/':
                         stack.append(int(stack.pop() / cur_num))
-                    break
+                    return sum(stack)
                 else:
                     if prev_op == '+':
                         stack.append(cur_num)
@@ -125,7 +125,7 @@ class Solution:
                         prev_num *= cur_num
                     elif prev_op == '/':
                         prev_num = int(prev_num / cur_num)
-                    break
+                    return sum + prev_num
                 else:
                     if prev_op == '+':
                         sum += prev_num
