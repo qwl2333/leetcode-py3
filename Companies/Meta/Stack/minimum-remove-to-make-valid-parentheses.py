@@ -1,4 +1,5 @@
 # lc 1249
+# 和 lc 921 类似, 可以去看下 921里面的comments
 class Solution:
     # time O(n), space O(n)
     # 重点是把s变成list，方便直接修改

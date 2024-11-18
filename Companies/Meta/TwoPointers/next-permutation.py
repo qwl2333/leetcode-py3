@@ -55,6 +55,9 @@ class Solution:
             l += 1
             r -= 1
     
+    '''
+     nums[k+1:] 是 reverse sorted array, 找第一个> target的位置
+    '''
     def binary_search(self, nums, start, end, target): # find first > target
         while start <= end:
             mid = (start + end) // 2
@@ -64,6 +67,51 @@ class Solution:
                 end = mid - 1
         return end # 这种情况是一定有解的,必存在>target的,所以不用点心out of bound
 
+    '''
+        也可以先找到位置k, k之后都是不严格递减的数列, 当nums[k] < nums[k + 1]
+        然后reverse nums[k+1:], reverse之后k+1开始都是非严格地震局的数列
+        然后k+1开始,找第一个>num[k]的, 和k的数swap
+        这个和之前做法就是先reverse再找要swap的,可以避免不熟悉的逆序数组的二分
+    '''
+
+
+    def nextPermutation2(self, nums: list[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        i = len(nums) - 1
+
+        while i > 0 and nums[i - 1] >= nums[i]:
+            i -= 1
+        
+        if i == 0:
+            nums.reverse()
+            return
+
+        l, r = i, len(nums) - 1
+        while l < r:
+            nums[l], nums[r] = nums[r], nums[l]
+            l += 1
+            r -= 1
+        
+        k = i - 1
+        target = nums[k]
+        j = self.binary_search2(nums, i, len(nums) - 1, target)
+        nums[j], nums[k] = nums[k], nums[j]
+
+    '''
+        因为nums[k+1:] 已经sorted过了
+        所以此时是在sorted 的nums[k+1:]里找第一个>target的位置
+    '''
+    def binary_search2(self, nums, start, end, target): # find first > target
+        while start <= end:
+            mid = (start + end) // 2
+            if nums[mid] > target:
+                end = mid - 1
+            else:
+                start = mid + 1
+                
+        return start
 
 s = Solution()
 nums = [9,8,7,6]
