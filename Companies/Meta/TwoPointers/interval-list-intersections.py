@@ -16,7 +16,7 @@ class Solution:
                     j += 1
                 elif fst[1] < scd[1]:
                     i += 1
-                else:
+                else: # fst[1] = scd[1]
                     i += 1
                     j += 1
             else: # no intersection

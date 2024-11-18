@@ -21,7 +21,7 @@ class Solution:
 
     # Time O(n)  Space O(n)  n = len(nums)
     def topKFrequentBucketSort(self, nums: list[int], k: int) -> list[int]:
-        bucket = [[] for _ in range(len(nums) + 1)]
+        bucket = [[] for _ in range(len(nums) + 1)] # freq -> list of num
 
         freq_map = {}
         for num in nums:
