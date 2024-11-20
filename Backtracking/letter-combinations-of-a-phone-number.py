@@ -53,7 +53,8 @@ class Solution:
         return letterCombinationsHelper(digits)
 
     # 这个是最优解, backtracking 可以不看
-    # bfs sol O(number of combinations) O(4^n) 每个digit最多四种选择, 想像成树就是树有四个孩子, 那么树有多高呢, 就是digits的长度n, 所以一共有O(4^n)个节点
+    # bfs sol O(number of combinations) O(4^n) 每个digit最多四种选择, 想像成树就是树有四个孩子, 那么树有多高呢, 就是digits的长度n, 所以一共有O(4^n)个节点,
+    # space 也是O(4^n), 比如最后一层的deque 最差会有 4^n 个 string, 比如 999, n = 3,  最后一个9之后 deque会有64个string
     def letterCombinationsBFS(self, digits: str) -> list[str]:
         if not digits:
             return []
@@ -68,7 +69,7 @@ class Solution:
             letters = phone[digits[next_idx]]
             for letter in letters:
                 new_str = cur_str + letter
-                if len(new_str) == len(digits):
+                if len(new_str) == len(digits): # 此时不难再把new_str放到queue了, 再往后就没digit了
                     res.append(new_str)
                 else:
                     queue.append((new_str, next_idx))
