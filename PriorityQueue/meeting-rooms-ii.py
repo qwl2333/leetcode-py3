@@ -14,8 +14,8 @@ class Solution:
                 room_counter += 1
                 continue
             if s < min_heap[0]:
-                room_counter += 1
                 heappush(min_heap, e)
+                room_counter += 1
             else:
                 heappop(min_heap)
                 heappush(min_heap, e)

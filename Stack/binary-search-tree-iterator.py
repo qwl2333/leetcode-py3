@@ -7,26 +7,26 @@ class TreeNode:
         self.left = left
         self.right = right
 class BSTIterator:
-    # Time O(h) h is the height of the bst, in the worst case it could be number of nodes n, when tree is skewed
-    # Time O(1) avg, because there are n elements to be stored to stack, each is poped when calling next(), maybe first time a lot of nodes go into stack
-    # then next time calling next(), no nodes go into stack, so avg is O(1)
     def __init__(self, root: Optional[TreeNode]):
         self.head = root
         self.stack = list()
-
-    def next(self) -> int:
-        while self.head: # looks like O(n), but all nodes only go into stack 1 time, so in total n nodes in stack, avg time is O(1)
+        while self.head:
             self.stack.append(self.head)
             self.head = self.head.left
+
+    # Time O(h) h is the height of the bst, in the worst case it could be number of nodes n, when tree is skewed
+    # Time O(1) avg, because there are n elements to be stored to stack, each is poped when calling next(), maybe first time a lot of nodes go into stack
+    # then next time calling next(), no nodes go into stack, so avg is O(1)
+    def next(self) -> int:
         cur = self.stack.pop()
-        self.head = cur.right
+        right = cur.right
+        while right:
+            self.stack.append(right)
+            right = right.left
         return cur.val
 
     def hasNext(self) -> bool:
-        if not self.stack and not self.head:
-            return False
-
-        return True
+        return not len(self.stack) == 0
 
 
 # Your BSTIterator object will be instantiated and called as such:

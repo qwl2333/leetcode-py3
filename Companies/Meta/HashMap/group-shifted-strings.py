@@ -8,6 +8,10 @@ class Solution:
             key = ''
             for i in range(len(s) - 1):
                 diff = ord(s[i + 1]) - ord(s[i])
+                '''
+                 ba: -1 % 26 = 25
+                 az: 25 % 26 = 25
+                '''
                 key += f'{(diff % 26)},'
             if key not in key_to_strings:
                 key_to_strings[key] = []
