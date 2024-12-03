@@ -34,20 +34,18 @@ class Solution:
         # print(adjacent_list)
         def dfs(begin_word: str, end_word: str, path: list[str]):
             if begin_word == end_word:
-                path.append(begin_word)
                 res.append(list(path))
-                path.pop()
                 return
 
-            path.append(begin_word)
             for nb in adjacent_list[begin_word]:
                 if visited[nb] == visited[begin_word] + 1:
+                    path.append(nb)
                     dfs(nb, end_word, path)
-            path.pop()
+                    path.pop()
 
         res = []
-        dfs(beginWord, endWord, [])
-        return res            
+        dfs(beginWord, endWord, [beginWord])
+        return res         
 
 
 s = Solution()

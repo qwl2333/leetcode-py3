@@ -38,7 +38,7 @@ class Solution:
         return ans if ans != float('inf') else -1
         
 
-
+    # 最优解 类似 word ladder 2 思路
     # https://leetcode.cn/problems/stickers-to-spell-word/solutions/1492826/pythonjavajavascriptgo-by-himymben-43ik/
     # BFS solution
     # O(n * m * n) n - length of target, m - number of stickers
@@ -62,8 +62,8 @@ class Solution:
                 # cur target string的第一个character如果和sticker有交集，
                 # 如果最优解存在，是肯定能在最优解里面找到一个或ticker来消除这个第一个character的
                 # 这样可以避免先消除a，再消除b，和先消除b，再消除a的情况，这俩是不同的路径但是消除的都是ab的组合
-                if cur[0] in sticker: 
-                                      
+                if cur[0] in sticker:
+                    nxt = cur                 
                     for k, v in sticker.items():
                         nxt = nxt.replace(k, '', v) # O(n)的操作， n is length of target
                     if nxt not in explored:
@@ -72,4 +72,4 @@ class Solution:
         return -1
 
 s = Solution()
-print(s.minStickersDFS(["with","example","science"], "thehat"))
+print(s.minStickersBFS(["with","example","science"], "thehat"))

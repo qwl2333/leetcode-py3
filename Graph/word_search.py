@@ -3,7 +3,7 @@ class Solution:
     # Time O(n * m * dfs) dfs = 3^len(word)
     '''
 Complexity Analysis
-Time Complexity: O(N⋅3L) where N is the number of cells in the board and L is the length of the word to be matched.
+Time Complexity: O(N⋅3^L) where N is the number of cells in the board and L is the length of the word to be matched.
 
 For the backtracking function, initially we could have at most 4 directions to explore, but further the choices are reduced into 3 (since we won't go back to where we come from).
 As a result, the execution trace after the first step could be visualized as a 3-nary tree, each of the branches represent a potential exploration in the corresponding direction. Therefore, in the worst case, the total number of invocation would be the number of nodes in a full 3-nary tree, which is about 3^L.
@@ -31,10 +31,7 @@ The main consumption of the memory lies in the recursion call of the backtrackin
         m = len(board[0])
         directions = [[0, 1], [1, 0], [0, -1], [-1, 0]]
 
-        def dfs_helper(x: int, y: int, index: int, visited: set) -> bool:
-            if x < 0 or x >= n or y < 0 or y >= m:
-                return False
-            
+        def dfs_helper(x: int, y: int, index: int, visited: set) -> bool:            
             if word[index] != board[x][y]:
                 return False
             
@@ -44,11 +41,11 @@ The main consumption of the memory lies in the recursion call of the backtrackin
             for dx, dy in directions:
                 newx = x + dx
                 newy = y + dy
-                if (newx, newy) not in visited:
-                    visited.add((newx, newy))
+                if 0 <= newx < n and 0 <= newy < m and (newx, newy) not in visited:
+                    visited.add((newx, newy)) # 可能是一个潜在的路
                     if dfs_helper(newx, newy, index + 1, visited):
                         return True
-                    visited.remove((newx, newy))
+                    visited.remove((newx, newy)) # 返回了false说明(newx, newy)不通到最后, 去掉它
             
             return False
         

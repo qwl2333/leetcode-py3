@@ -16,8 +16,6 @@ class Solution:
 
         visited_accounts = set()
         def find_emails_connected_to_account(account_idx: int, emails_found: set):
-            if account_idx in visited_accounts:
-                return
             visited_accounts.add(account_idx)
             cur_account = accounts[account_idx]
             for i in range(1, len(cur_account)):
@@ -26,7 +24,8 @@ class Solution:
                     continue
                 emails_found.add(email)
                 for nb_account in email_to_accounts[email]:
-                    find_emails_connected_to_account(nb_account, emails_found)
+                    if nb_account not in visited_accounts:
+                        find_emails_connected_to_account(nb_account, emails_found)
         
         res = []
         for i, account in enumerate(accounts):
