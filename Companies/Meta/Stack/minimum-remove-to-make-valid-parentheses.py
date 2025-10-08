@@ -13,7 +13,7 @@ class Solution:
                 if stack:
                     stack.pop()
                 else:
-                    s[i] = '' # 多余的(在这就被处理掉了
+                    s[i] = '' # 多余的)在这就被处理掉了
         while stack:
             s[stack.pop()] = '' # 处理记录下来的多余的(
         return ''.join(s)
