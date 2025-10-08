@@ -16,14 +16,14 @@ class Solution:
         n = len(s)
         dp = [False for _ in range(n + 1)] # dp[i]意思是 s[:i] 是可以被break的, i表示的是substring的长度
         dp[0] = True
-        for i in range(1, n + 1): # # i表示的是substring s[:i]的长度, 我们从1开始直到n, 依次算这个s[:i]可不可以被break, 当i=n+1 s[:i]就是原来的s
+        for i in range(1, n + 1): # # i表示的是substring s[:i]的长度, 我们从1开始直到n, 依次算这个s[:i]可不可以被break, 当i=n s[:i]就是原来的s
             for w in wordDict:
                 start = i - len(w)
                 if start >= 0 and dp[start] and s[start:i] == w:
                     dp[i] = True
                     break
 
-        return dp[-1]
+        return dp[n]
     
     '''
      这是我觉得最好记的解法,但是tle了

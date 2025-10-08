@@ -9,16 +9,19 @@ class Solution:
         def extend_center(l: int, r: int):
             nonlocal start, max_len
             while l >= 0 and r < n and s[l] == s[r]:
+                '''
+                    record max_len and start first in case after l, r updated, they are out of line
+                '''
+                if max_len < r - l - 1:
+                    max_len = r - l - 1
+                    start = l + 1
                 l -= 1
                 r += 1
-            if max_len < r - l - 1:
-                max_len = r - l - 1
-                start = l + 1
-        
+
         for i in range(n):
-            extend_center(i, i)
+            extend_center(i, i) # for palindromic substring with odd length
             if i < n - 1:
-                extend_center(i, i + 1)
+                extend_center(i, i + 1) # for palindromic substring with even length
         
         return s[start: start + max_len]
         
