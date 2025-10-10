@@ -19,4 +19,4 @@ class Solution:
         return ''.join(s)
 
 s = Solution()
-print(s.minRemoveToMakeValid('lee(t(c)o)de)')) # expected lee(t(c)o)de
+print(s.minRemoveToMakeValid('lee)t)c(o(de)')) # expected leetco(de)
