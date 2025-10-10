@@ -6,19 +6,20 @@
 class Solution:
     # Time O(n), space O(1)
     def minAddToMakeValid(self, s: str) -> int:
-        count_open = 0
-        count_close = 0
+        count_left = 0
+        count_right = 0
         res = 0
         for c in s:
             if c == '(':
-                count_open += 1
+                count_left += 1
             else:
-                count_close += 1
-            if count_open < count_close:
-                res += (count_close - count_open) # res += 1
-                count_open = count_close
+                count_right += 1
+                if count_left < count_right:
+                    res += 1 # res += (count_right - count_left) this means we need to add
+                            # a (, to make sure count_left and count_right are equal
+                    count_left = count_right
         
-        res += (count_open - count_close)
+        res += (count_left - count_right)
         return res
 
 s = Solution()
