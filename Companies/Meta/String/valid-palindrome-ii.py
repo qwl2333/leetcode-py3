@@ -1,6 +1,6 @@
 # lc 680
 class Solution:
-    # Time O(n), space O(n)
+    # Time O(n), space O(1)
     def validPalindrome(self, s: str) -> bool:
         l, r = 0, len(s) - 1
 
