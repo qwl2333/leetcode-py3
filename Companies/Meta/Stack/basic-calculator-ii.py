@@ -71,7 +71,7 @@ class Solution:
                 cur_num = 0
                 prev_op = c
 
-        return sum + prev_num
+        return sum + prev_num # 非常容易遗漏最后还要再加一次
 
 s = Solution()
 print(s.calculate('3-2*2'))
