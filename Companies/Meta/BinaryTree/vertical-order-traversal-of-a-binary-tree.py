@@ -15,7 +15,7 @@ class TreeNode:
         self.left = left
         self.right = right
 from collections import deque
-# time O(n + nlog(n/k)) n is the number of nodes in the tree, k is the width of the tree, or number of columns in the result, if the tree is skewed, k equals n in this case, time is O(n)
+# time O(nlog(n/k)) n is the number of nodes in the tree, k is the width of the tree, or number of columns in the result, if the tree is skewed, k equals n in this case, time is O(n)
 # 虽然实际是sort重合的点， sort 肯定是close to nlogn的。所以说nlogn也没问题
 # space O(n)
 class Solution:
@@ -25,7 +25,7 @@ class Solution:
 
         queue = deque()
         queue.append((0, 0, root))
-        col_to_nodes: dict[int, dict[int, list]] = {} # 也可以直接加 dict[col, tuple[r, val]] 最后的for loop再sort tuple也行
+        col_to_nodes: dict[int, dict[int, list]] = {} # col to row to list
         min_col, max_col = float('inf'), -float('inf')
         while queue:
             r, c, root = queue.popleft()
@@ -34,7 +34,7 @@ class Solution:
                 col_to_nodes[c] = {}
             if r not in col_to_nodes[c]:
                 col_to_nodes[c][r] = []
-            col_to_nodes[c][r].append(root.val)
+            col_to_nodes[c][r].append(root.val) # 一定要注意这里是先c再r
 
             if root.left:
                 queue.append((r + 1, c - 1, root.left))
