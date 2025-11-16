@@ -13,7 +13,13 @@ class Solution:
     On the second iteration the first pointer will go through s1_diff + common + s2_diff. 
     The second pointer will go through s2_diff + common + s1_diff. After they go through those paths, they will meet. 
     If there is no common part, then the both pointers will be null
+    s1走完就走s2的路线
+    s2走完就走s1的路线
+    s1 = s1 + common + s2
+    s2 = s2 + common + s1
+    简单来说就是两个pointer最后走的相同路程,而且会相遇在相交点
     '''
+
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
         if not headA or not headB:
             return None
