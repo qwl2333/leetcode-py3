@@ -5,7 +5,7 @@ class Solution:
         l, r = 0, len(s) - 1
 
         def validPalindromeHelper(l: int, r: int, s: str) -> bool:
-            while l <= r:
+            while l < r:
                 if s[l] == s[r]:
                     l += 1
                     r -= 1
