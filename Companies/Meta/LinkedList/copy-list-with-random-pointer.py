@@ -9,6 +9,48 @@ class Node:
         self.random = random
 
 class Solution:
+    # 节省一个map的写法
+    # time O(3n), space O(1) 如果不算新node - n is number of nodes in the list
+    def copyRandomList2(self, head: 'Optional[Node]') -> 'Optional[Node]':
+        if not head:
+            return None
+
+        # 1) Interleave: a -> a' -> b -> b' ...
+        cur = head
+        while cur:
+            clone = Node(cur.val)
+            next_node = cur.next
+            cur.next = clone
+            clone.next = next_node
+            cur = next_node
+
+        # 给新node的random连起来必须和detach步骤分开做，2，3不能合在一起
+        # Originals: A -> B -> C
+        # Clones interleaved: A -> A' -> B -> B' -> C -> C'
+        # Suppose C.random = A.
+        # If you already detached A when you reach C, then A.next is B (not A').
+        # Your code sets C'.random = A.next = B → wrong.
+
+        # 2) Set clone.random while still interleaved
+        cur = head
+        while cur:
+            clone = cur.next
+            if cur.random:
+                clone.random = cur.random.next
+            cur = clone.next  # move to next original
+
+        # 3) Detach
+        cur = head
+        new_head = head.next
+        while cur:
+            clone = cur.next
+            cur.next = clone.next            # restore original
+            if clone.next:
+                clone.next = clone.next.next # link clones
+            cur = cur.next
+
+        return new_head
+
     # time O(2n), space O(n) - n is number of nodes in the list
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
         if not head:
