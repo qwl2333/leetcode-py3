@@ -8,54 +8,52 @@
 # 如果超了capacity pop from map的时候也要更新self.map
 class Node:
     def __init__(self, key: int, val: int):
-        self.key = key # key是必须的，因为在超了capacity，del node from map时，使用的是del self.map[self.head.next.key]
+        self.key = key # key是必须的，因为在超了capacity，del key from cache时，使用的是 self.cache.pop(self.head.next.key)
         self.val = val
-        self.prev = None
-        self.next = None
+        self.prev: 'None' = None
+        self.next: 'None' = None
 
 class LRUCache:
     def __init__(self, capacity: int):
         self.capacity = capacity
-        self.map = {}
+        self.cache = {} # int -> Node
         self.head = Node(-1, -1)
         self.tail = Node(-1, -1)
         self.head.next = self.tail
         self.tail.prev = self.head
     
-    def remove_node(self, node: Node) -> None:
-        prev_node = node.prev
-        next_node = node.next
-        prev_node.next = next_node
-        next_node.prev = prev_node
-        node.prev = None
-        node.next = None
+    def delete_node(self, node: Node):
+        prev = node.prev
+        next = node.next
+        prev.next = next
+        next.prev = prev
     
-    def append_node(self, node: Node) -> None:
-        prev_node = self.tail.prev
-        prev_node.next = node
-        node.prev = prev_node
+    def append_to_tail(self, node: Node):
+        prev_tail = self.tail.prev
+        prev_tail.next = node
+        node.prev = prev_tail
         node.next = self.tail
         self.tail.prev = node
 
     def get(self, key: int) -> int:
-        if key in self.map:
-            node = self.map[key]
-            self.remove_node(node)
-            self.append_node(node)
-            return node.val
-        else:
-            return -1
-        
+        if key not in self.cache:
+            return  -1
+        node = self.cache[key]
+        self.delete_node(node)
+        self.append_to_tail(node)
+        return node.val
 
-    def put(self, key: int, value: int) -> None:
-        new_node = Node(key, value)
-        if key in self.map:
-            self.remove_node(self.map[key])
-        self.append_node(new_node)
-        self.map[key] = new_node
-        if len(self.map) > self.capacity:
-            del self.map[self.head.next.key]
-            self.remove_node(self.head.next)
+    def put(self, key: int, val: int):
+        if key not in self.cache:
+            new_node = Node(key, val)
+            self.append_to_tail(new_node)
+            self.cache[key] = new_node
+            if len(self.cache) > self.capacity:
+                self.cache.pop(self.head.next.key)
+                self.delete_node(self.head.next)
+        else:
+            self.get(key)
+            self.tail.prev.val = val
             
 
 
