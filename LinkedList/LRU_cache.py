@@ -52,8 +52,8 @@ class LRUCache:
                 self.cache.pop(self.head.next.key)
                 self.delete_node(self.head.next)
         else:
-            self.get(key)
-            self.tail.prev.val = val
+            self.get(key) # 本质上是把这个node先移到list最后了，保证它是最近用过的node
+            self.tail.prev.val = val # 然后只要改val就行了
             
 
 
