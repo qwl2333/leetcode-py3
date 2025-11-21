@@ -22,7 +22,7 @@ class Solution:
         
         k = i - 1 # k is the position before rightmost descending sequence
         j = len(nums) - 1 # j is to find the first element in right side that > nums[k]
-        while nums[j] <= nums[k]:
+        while nums[j] <= nums[k]: # no need to check j's range because in the worst case j == i statify nums[j] = nums[i] > nums[i - 1] = nums[k]
             j -= 1
         nums[j], nums[k] = nums[k], nums[j]
 
