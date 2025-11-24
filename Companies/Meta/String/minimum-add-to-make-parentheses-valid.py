@@ -17,8 +17,8 @@ class Solution:
                 if count_left < count_right:
                     res += 1 # res += (count_right - count_left) this means we need to add
                             # a (, to make sure count_left and count_right are equal
-                    count_left = count_right
-        
+                    count_left = count_right = 0 # 和 lc32 最优解的解法很像
+
         res += (count_left - count_right)
         return res
 
