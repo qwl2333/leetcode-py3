@@ -60,6 +60,8 @@ class Solution:
             for k in range(4):
                 
                 # 计算当前物理朝向所对应的逻辑方向索引
+                # 第一遍循环cur_dir = 0 朝上的, 那这次循环的nx,ny就是朝上移动一步
+                # 第二遍循环cur_dir = 1 朝右的, 那这次循环的nx,ny就是朝右移动一步, 不过在第一遍循环结尾是,机器人方向已经调整了turnRight() 一次, 所以第二循环只需robot.move()就行, 其实每次循环都是move就行了, 因为方向在上一次循环结尾已经调整过了
                 new_dir_idx = (cur_dir + k) % 4
                 
                 # 计算如果移动成功，应该到达的逻辑坐标
@@ -97,7 +99,7 @@ class Solution2:
         # 记忆地图 (存储已访问的 (x, y) 坐标)
         visited = set()
         # 四个探索方向
-        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)] 
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)] # 右 
 
         def dfs(x, y):
             # 1. 标记当前点
@@ -105,6 +107,12 @@ class Solution2:
             print(f"Cleaning: ({x}, {y})") # 执行操作
             
             # 2. 探索周围的四个邻居
+            # 这个和机器人有些微差别, 机器人是每次一条道走到黑,再换个方向一条道走到黑
+            # 这个traverse不一定是一条道走到底, 比如       a3 
+            #                                          |
+            #                                    a1 -- a2
+            # a1 走到 a2 不会继续向右走而是向上到a3, 因为任意点的directions每次都是向上走第一步
+            # 如果是机器人的走法一定是沿着cur dir继续走,不行再换方向
             for dx, dy in directions:
                 nx, ny = x + dx, y + dy
                 
