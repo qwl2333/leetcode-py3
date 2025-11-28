@@ -56,7 +56,7 @@ class Solution:
             robot.clean()
             cleaned.add((i, j))
 
-            # 探索四个方向 (从当前朝向开始顺时针旋转)
+            # 探索四个方向 (从当前朝向开始顺时针旋转, 最多四个方向, 但是一定是沿着当前cur_dir开始的)
             for k in range(4):
                 
                 # 计算当前物理朝向所对应的逻辑方向索引
