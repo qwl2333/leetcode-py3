@@ -10,7 +10,7 @@ class ListNode:
 class Solution:
     # edge case 要考虑 lists = [] 和 lists = [None]
     # merge k sorted lists using min heap
-    # time O(nk*logk)   space O(k)   k: number of lists that need to be merged, n: average length of each list
+    # time O(n*logk)   space O(k)   k: number of lists that need to be merged, n: total number of nodes of all lists
     def mergeKLists(self, lists: list[Optional[ListNode]]) -> Optional[ListNode]:
         heap, res = [], ListNode()
         for i, list in enumerate(lists):
@@ -54,9 +54,9 @@ class Solution:
             l2.next = self.mergeTwoSortedLists(l1, l2.next)
             return l2
     
-    # Merge sort
-    # k : number of lists,  n: avg number of nodes in list  
-    # time O(nk*logk) -  (height of stack)logk * nk (number of nodes we need to iterate)           
+    # Merge sort divide and conquer
+    # k : number of lists,  n: number of nodes in all k list
+    # time O(n*logk) -  (height of stack)logk * n      
     # space O(logk) logk is the height of the binary tree. The space for stack we use
     def mergeKListsMergeSort(self, lists):
         if not lists:
@@ -72,3 +72,73 @@ class Solution:
         upper = self.mergeKListsRecursive(lists, mid + 1, end)
 
         return self.mergeTwoSortedLists(lower, upper)
+    
+    # Merge sort iterative
+    # k : number of lists,  n: number of nodes in all k list
+    # time O(n*logk) -  (height of stack)logk * n      
+    # space O(1)
+    def mergeKListsIterative(self, lists: list['ListNode']) -> 'ListNode':
+        if not lists:
+            return None
+        
+        amount = len(lists)
+        interval = 1 
+        
+        # ----------------------------------------------------
+        # 算法流程示例（迭代分治合并）
+        # 假设初始 lists 有 4 个链表：[L0, L1, L2, L3]
+        # ----------------------------------------------------
+        
+        # 核心迭代循环：interval 决定了每次合并的步长
+        while interval < amount:
+            
+            # 遍历并执行两两合并。i 从 0 开始，步长为 interval * 2
+            for i in range(0, amount - interval, interval * 2):
+                
+                # 当前正在合并的链表对是：lists[i] 和 lists[i + interval]
+                
+                # 使用 mergeTwoSortedLists 辅助函数进行合并，并将结果存回 lists[i]
+                lists[i] = self.mergeTwoSortedLists(lists[i], lists[i + interval])
+                
+            # --- 示例追踪 ---
+            # 初始: amount = 4, interval = 1
+            # 
+            # 第 1 轮 (interval = 1):
+            # 1. i=0: 合并 (L0, L1)，结果存回 L0。
+            # 2. i=2: 合并 (L2, L3)，结果存回 L2。
+            # 此时数组的有效链表是 [(L0+L1), L1, (L2+L3), L3]
+            # interval 变为 2。
+            
+            # 第 2 轮 (interval = 2):
+            # 1. i=0: 合并 (L0, L0+2)，即合并 (L0+L1) 和 (L2+L3)。
+            # 结果存回 L0。
+            # 此时数组的有效链表是 [ (L0+L1+L2+L3), ... ]
+            # interval 变为 4。
+            # 
+            # 循环结束： interval (4) 不再小于 amount (4)。
+            # ----------------------------------------------------
+            
+            # 扩大合并的步长，进入下一轮迭代（有效链表数量减半）
+            interval *= 2
+            
+        # 最终合并的结果存储在 lists[0]
+        return lists[0]
+
+    def mergeTwoSortedListsIterative(self, l1: ListNode, l2: ListNode) -> ListNode:
+        """标准函数：合并两个有序链表"""
+        dummy = ListNode(0)
+        tail = dummy
+        
+        while l1 and l2:
+            if l1.val < l2.val:
+                tail.next = l1
+                l1 = l1.next
+            else:
+                tail.next = l2
+                l2 = l2.next
+            tail = tail.next
+            
+        # 连接剩余部分
+        tail.next = l1 if l1 else l2
+        
+        return dummy.next
