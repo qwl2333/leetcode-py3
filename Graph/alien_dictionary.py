@@ -57,5 +57,4 @@ class Solution:
                 if indegree[nb] == 0:
                     q.append(nb)
         
-        return res if len(res) == len(indegree) else "" # 最后要确认res结果包含了所有出现过的chars
-                
+        return res if len(res) == len(indegree) else "" # 最后要确认res结果包含了所有出现过的chars， 如果有环, 那 len(res) != len(indegree), 因为有的char 入度不为0，永远进不了q
