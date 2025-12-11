@@ -1,5 +1,6 @@
 # lc 378 
-# _count_le 计算矩阵中有多少个元素小于等于 target 和 lc 240 类似
+# 二分法 _count_le 计算矩阵中有多少个元素小于等于 target 和 lc 240 类似
+# min heap解法 和 lc 373 类似
 import heapq
 from typing import List
 
