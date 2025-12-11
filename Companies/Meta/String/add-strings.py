@@ -7,7 +7,6 @@ class Solution:
         i, j = len(num1) - 1, len(num2) - 1
         res = ''
         carry = 0
-        count = 0
         while i >= 0 or j >= 0:
             v1 = 0
             v2 = 0
@@ -20,7 +19,6 @@ class Solution:
             temp_sum = v1 + v2 + carry
             res += str(temp_sum % 10)
             carry = temp_sum // 10
-            count += 1
 
         if carry == 1:
             res += str(carry)
