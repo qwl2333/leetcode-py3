@@ -1,5 +1,5 @@
 # lc 545
-
+from typing import Optional
 # Definition for a binary tree node.
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -7,9 +7,9 @@ class TreeNode:
         self.left = left
         self.right = right
 
-class Solution(object):
-    def boundaryOfBinaryTree(self, root):
-        def dfs_leftmost(node):
+class Solution:
+    def boundaryOfBinaryTree(self, root: Optional[TreeNode]) -> list[int]:
+        def dfs_leftmost(node: Optional[TreeNode]):
             if not node or not node.left and not node.right:
                 return
             boundary.append(node.val)
@@ -18,7 +18,7 @@ class Solution(object):
             else:
                 dfs_leftmost(node.right)
 
-        def dfs_leaves(node):
+        def dfs_leaves(node: Optional[TreeNode]):
             if not node:
                 return
             if node != root and not node.left and not node.right:
@@ -26,7 +26,7 @@ class Solution(object):
             dfs_leaves(node.left)
             dfs_leaves(node.right)
 
-        def dfs_rightmost(node):
+        def dfs_rightmost(node: Optional[TreeNode]):
             if not node or not node.left and not node.right:
                 return
             if node.right:
