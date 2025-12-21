@@ -1,5 +1,16 @@
 # lc 14
 class TrieNode:
+    '''
+    需要注意
+    abc
+    abcd
+    abce
+    abcf
+    对于root来说 children里面只有一个key 就是a
+    而且如果是end_of_word 一定是在下一个TrieNode里面
+    比如a是一个word 那root本身的children里面有一个key{a : someTrieNode}
+    表示a是一个word的end_of_word 一定不是root的end_of_word 而是a对应的someTrieNode的end_of_word
+    '''
     def __init__(self):
         self.children = {} # char -> TrieNode
         self.end_of_word = False
@@ -34,6 +45,11 @@ class Solution:
             cur = cur.children[keys[0]]
             count += 1
         return strs[0][0:count]
+    
+    abcd
+    abcdef
+    abcefg
+    abcfgh
     
     # time O(nmlognm + m) = O(nm * lognm) n - number of str in strs, m - avg length of str, 就是sort严格意义上是sort所有characters
     # space O(1)
