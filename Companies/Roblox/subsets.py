@@ -1,4 +1,5 @@
 # lc 78
+# lc 22 backtracking 标准模版类似的解法
 class Solution:
     # Time O(2^n)
     def subsets(self, nums: list[int]) -> list[list[int]]:
