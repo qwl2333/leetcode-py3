@@ -75,6 +75,15 @@ class Solution:
                 large_size -= 1
                 if num == large[0]:
                     prune(large, False)
+            # 为什么上面prune了一次, rebalance里面还有prune
+            # 核心原因：rebalance 必须依赖“干净”的堆顶
+            # rebalance 的核心逻辑是比较 small[0] 和 large[0]。如果堆顶是脏数据（应该被删除但还没弹出的数），那么：
+            # small[0] 的值就是错的。
+            # rebalance 挪动元素的方向可能就错了。
+            # 所以，prune 的原则是：只要堆顶变了（不管是由于删除还是由于挪动），我们就要检查新堆顶是不是干净的。
+            # 总结
+            # remove_num 里的 prune 也就是上面的prune是为了清理掉旧的堆顶。
+            # rebalance 里的 prune 是为了清理掉挪动后产生的新堆顶。
             rebalance()
 
         def get_median():
