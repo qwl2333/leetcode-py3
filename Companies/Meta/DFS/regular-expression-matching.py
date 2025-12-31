@@ -1,4 +1,5 @@
 # lc 10 和 lc 44 类似
+# 区别是 lc 10 必须根据 * 之前的char来match, lc 44是 *。可以match任何sequence of chars, even empty sequence
 class Solution:
     """
     状态定义 dp(i, j): 
