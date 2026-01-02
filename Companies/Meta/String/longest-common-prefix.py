@@ -46,10 +46,10 @@ class Solution:
             count += 1
         return strs[0][0:count]
     
-    abcd
-    abcdef
-    abcefg
-    abcfgh
+    # abcd
+    # abcdef
+    # abcefg
+    # abcfgh
     
     # time O(nmlognm + m) = O(nm * lognm) n - number of str in strs, m - avg length of str, 就是sort严格意义上是sort所有characters
     # space O(1)
