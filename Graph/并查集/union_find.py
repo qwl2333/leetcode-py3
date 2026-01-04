@@ -43,6 +43,7 @@ class UnionFind:
         if root_x == root_y: # 不能merge 两个集合，因为有环
            return False
         else:
+            # 把个子矮的树挂在个之高的树下面,避免树越来越深, ranks[x] 代表了x为根的树的高度
             if self.ranks[root_x] > self.ranks[root_y]:
                 self.parents[root_y] = root_x
             elif self.ranks[root_x] < self.ranks[root_y]:
