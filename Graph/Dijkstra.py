@@ -7,15 +7,6 @@
 # 当Dijkstra算法运行完成时，记录下每次找到最短路径时所经过的边，这些边会形成一棵树，称为最短路径树 SPT (shortest path tree)。
 # 特性: 这棵树的特性是，树上的任意一个节点到根节点（源点）的路径，就是原图中该节点到源点的最短路径
 
-# Minimum Spanning Tree (MST) 的中文是最小生成树。它指在一个连通的加权无向图中，选出一些边连接所有顶点，形成一棵树，且所有选出边的权值总和最小。
-# 在计算机科学和网络设计中，它用于优化网络连接、降低成本，通常用 Prim算法 和 Kruskal算法 解决。
-# 生成树 (Spanning Tree)：一个图的生成树是包含原图所有顶点、且没有回路的子图，对于有 n 个顶点的图，生成树有 n-1 条边。
-# 加权图 (Weighted Graph)：图中的边都有一个关联的数字（权重），通常代表成本、距离等。
-# 最小生成树 (MST)：在所有可能的生成树中，总权重（边权重之和）最小的那棵树。
-
-# prim mst 算法解释 python实现 https://www.youtube.com/watch?v=rS6_LTsvx7w
-# kruskal mst 算法解释 python实现 https://www.youtube.com/watch?v=ZsLlhezMxiM&list=PLqZkRM3t-8wZ3QBcq-xRDjhOzhdM7hW5w&index=10&pp=iAQB
-
 # SPT: 有Dijkstra算法在图里生成的树, 每个点到原点都是的路径都是最短的路径, 图可以有向可以无向, 权重必须是非负
 # MST: 包含原图所有点,无环,且所有边权重和最小, 图必须是无向的, 权重可以为正可以为负也可以全部为1, 全部为1就相当于bfs的过程
 
