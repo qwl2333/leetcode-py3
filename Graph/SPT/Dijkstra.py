@@ -14,7 +14,7 @@
 # SPT是从特定原点出发的, 所有点到达这个原点是最小的路径
 # MST把所有点连起来成本最少
 
-# 面试中要掌握Dijkstra和Kruskal(union find)即可
+# 面试中要掌握Dijkstra和Kruskal(union find), Prim即可
 
 
 """
