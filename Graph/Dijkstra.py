@@ -4,11 +4,15 @@
 # Floyd-Warshall	多源所有点最短路	算出图中任意两点之间的最短路径。      算法解释 python 实现 https://www.youtube.com/watch?v=aSbdzpJh8VQ&list=PLqZkRM3t-8wZ3QBcq-xRDjhOzhdM7hW5w&index=14
 #
 # Dijkstra 寻找从特定起点到图中所有其他节点的路径，使每一条路径的总权重和最小。不管是有向图还是无向图都适用
+# 标准 Dijkstra：相当于你打开 Google Map，输入你的位置，地图会计算出从你家出发，到全市每一个加油站的最短路线。
+# 带 end_node 的 Dijkstra：相当于你输入了“家 -> 某特定加油站”。导航依然在后台算很多路线，但一旦算出到那个加油站的最优解，它就停止计算并把结果弹给你看。
 # 当Dijkstra算法运行完成时，记录下每次找到最短路径时所经过的边，这些边会形成一棵树，称为最短路径树 SPT (shortest path tree)。
 # 特性: 这棵树的特性是，树上的任意一个节点到根节点（源点）的路径，就是原图中该节点到源点的最短路径
 
 # SPT: 有Dijkstra算法在图里生成的树, 每个点到原点都是的路径都是最短的路径, 图可以有向可以无向, 权重必须是非负
 # MST: 包含原图所有点,无环,且所有边权重和最小, 图必须是无向的, 权重可以为正可以为负也可以全部为1, 全部为1就相当于bfs的过程
+# SPT是从特定原点出发的, 所有点到达这个原点是最小的路径
+# MST把所有点连起来成本最少
 
 # 面试中要掌握Dijkstra和Kruskal(union find)即可
 
@@ -176,3 +180,76 @@ def run_tests():
     print(f"Test 7 (Zero Weight Cycle): {sol.dijkstra(edges7, 'A', 'B')} (Expected: 0)")
 
 run_tests()
+
+# 上面是从起点a到某一个点的最小路径, 下面是从起点到所有可达点的最短距离
+class Solution2:
+    def dijkstra_all_nodes(self, edges: list, start_node: str):
+        """
+        单源全路径 Dijkstra (One-to-All)
+        计算从 start_node 到图中【所有可达点】的最短距离
+        """
+        # 1. 构建邻接表
+        graph = defaultdict(list)
+        nodes = set()
+        for u, v, w in edges:
+            graph[u].append((v, w))
+            graph[v].append((u, w)) # 这里以无向图为例
+            nodes.add(u)
+            nodes.add(v)
+
+        # 2. 初始化
+        # pq 存储 (距离, 节点)
+        pq = [(0, start_node)]
+        
+        # 结果字典：记录到每个点的最短距离
+        min_dists = {node: float('inf') for node in nodes}
+        min_dists[start_node] = 0
+        
+        # 前驱字典：用于后续还原到任意点的路径
+        predecessors = {node: None for node in nodes}
+
+        # 3. 核心循环：直到堆为空，处理完所有可达的边和点
+        while pq:
+            cur_dist, cur_node = heapq.heappop(pq)
+
+            # 惰性删除：如果当前弹出的距离已经不是最新的最短距离，跳过
+            if cur_dist > min_dists[cur_node]:
+                continue
+            
+            # 遍历所有邻居，进行松弛操作
+            for nb, weight in graph[cur_node]:
+                new_dist = cur_dist + weight
+                
+                if new_dist < min_dists[nb]:
+                    min_dists[nb] = new_dist
+                    predecessors[nb] = cur_node
+                    heapq.heappush(pq, (new_dist, nb))
+
+        # 返回的是两个字典，包含了起点到全图的信息
+        return min_dists, predecessors
+
+    def get_path_to(self, predecessors, target_node):
+        """
+        辅助函数：根据 predecessors 字典还原到任意目标点的路径
+        """
+        path = []
+        curr = target_node
+        while curr is not None:
+            path.append(curr)
+            curr = predecessors.get(curr)
+        return path[::-1]
+
+# --- 测试对比 ---
+edges = [
+    ['A', 'B', 4], ['A', 'C', 5],
+    ['B', 'D', 9], ['B', 'E', 7],
+    ['C', 'E', 3], ['D', 'F', 2], ['E', 'F', 6]
+]
+
+sol = Solution2()
+all_distances, all_parents = sol.dijkstra_all_nodes(edges, 'A')
+
+print("--- 起点 A 到所有点的最短距离 ---")
+for node, dist in all_distances.items():
+    path = sol.get_path_to(all_parents, node)
+    print(f"到 {node} 的最短距离是 {dist}, 路径: {' -> '.join(path)}")
