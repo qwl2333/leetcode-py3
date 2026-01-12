@@ -51,10 +51,12 @@ class Solution:
             while h > height[stack[-1]]:
                 top_index = stack.pop()
                 lowest = height[top_index]
-                if stack:
-                    sum += (min(height[stack[-1]], h) - lowest) * (i - stack[-1] - 1)
-                else:
+
+                # 如果栈变空了，说明左边没有边界，接不了水
+                if not stack:
                     break
+
+                sum += (min(height[stack[-1]], h) - lowest) * (i - stack[-1] - 1)
 
             stack.append(i)
         
