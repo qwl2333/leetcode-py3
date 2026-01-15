@@ -24,7 +24,7 @@ class Solution:
                             new_word = cur_word[0:i] + letter + cur_word[i+1:]
                             if new_word == end_word:
                                 return count + 1
-                            if new_word in word_set:
+                            if new_word in word_set: # 与126 不同这里可以不加 and new_word != cur_word 因为cur_word之前从word_set里remove了 所以 new_word in word_set已经表明 new_word != cur_word
                                 queue.append(new_word)
                                 word_set.remove(new_word)
                 count += 1
