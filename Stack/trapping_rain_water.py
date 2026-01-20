@@ -1,4 +1,4 @@
-# lc 42
+# lc 42 和 lc 84 类似
 class Solution:
     # brute force - time O(n^2), space O(1) 花花解法
     # For column i, the rain it can trap:

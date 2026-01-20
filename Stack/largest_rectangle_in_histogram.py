@@ -1,26 +1,32 @@
 # lc 84 https://www.youtube.com/watch?v=zx5Sw9130L0&ab_channel=NeetCode
+# lc 42 类似
 class Solution:
-    # Neetcode 解法， 单调栈，单调栈最终里面的值都是单调增或减的，但是实际上所有的元素其实都进入过栈，这就有计算面积的可能性 time O(n), space O(n)
-    # 思路就是：入栈的时候思考 当前的height 大于或等于 top of the stack吗，大于等于就可以入栈，小于top of the stack
-    # 就出栈，出栈的时候计算面积，stack里面记录两个一个index，一个height，但是这个index要记住是可以向左extend直到stack里面所有
-    # 大于当前height的都pop出来了，此时的最近pop的index 才是start index，意味着当前height可以一直向左extend到此时的index
-    # 此题复杂，记住就好
     def largestRectangleArea(self, heights: list[int]) -> int:
+        # 1. 技巧：前后加哨兵 (高度为 0)
+        # 前面的 0 保证栈永远不会为空（作为最左侧的边界）
+        # 后面的 0 保证遍历结束时能强制弹出栈内所有剩余柱子并结算
+        heights = [0] + heights + [0]
+        stack = [] # 存储柱子的下标 (索引)
         max_area = 0
-        stack = [] # pair: (index, height) 非严格单调递增的栈
-
-        for i, h in enumerate(heights):
-            start = i
-            while stack and stack[-1][1] > h: #这里>=或者>都可以pass，但是方便理解 h必须严格小于top of stack，这意味着top of stack的height的矩形右边边界找到了
-                index, height = stack.pop() # 每次pop完都要计算pop出来的height可以得到的最大居心
-                max_area = max(max_area, height * (i - index)) # i是当前h的右边界，i所在的h是严格小于pop出的height的，你可能好奇为啥是i-index，假如stack是（0，5），（1，5‘），当前i是2，h是3，这次pop（1，5’），可以得出当前5‘为高，左边从1开始到i=2位置但不含2的矩形面积5，下次还会pop （0， 5），就是以5为高，从0开始到i=2但不含2的矩形面积10，所以相等的情况也不会漏掉
-                start = index # 所有pop出来的height都是严格大于h的,意味着start可以不同向右移动
-            stack.append((start, h)) # 当前的h从start开始往左延展直到i, 如果后面的h更大, 那还能继续延展
-                                     # 但是因为stack里面height<=h的, 意味着这个矩形也可能可以往右延展, 但是面积的计算只管当前的pop出来的index到最右的边界
-                                     # 之前的就算可以延展也要等到pop出来再计算
         
-        for i, h in stack:
-            max_area = max(max_area, h * (len(heights) - i))
+        for i, h in enumerate(heights):
+            # 当遇到当前柱子高度 < 栈顶柱子高度时，说明找到了栈顶柱子的“右边界”
+            while stack and h < heights[stack[-1]]: # 在前面加入的哨兵0是永远不可能被弹出的，因为没有哪个柱子高度会 < 0，这就保证了stack永远不空
+                # 1. 弹出栈顶作为当前矩形的高度
+                h_idx = stack.pop()
+                cur_h = heights[h_idx]
+                
+                # 2. 此时的新栈顶就是该柱子的“左边界”
+                # 因为栈是单调递增的，左边第一个比它矮的一定是新栈顶
+                left_idx = stack[-1]
+                right_idx = i
+                
+                # 3. 计算宽度和面积
+                width = right_idx - left_idx - 1
+                max_area = max(max_area, cur_h * width)
+            
+            # 保持栈内下标对应的高度是单调递增的
+            stack.append(i)
             
         return max_area
 
