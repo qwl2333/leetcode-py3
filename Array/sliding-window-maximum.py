@@ -2,12 +2,7 @@
 import collections
 class Solution(object):
     # O(n)
-    def maxSlidingWindow(self, nums, k):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: List[int]
-        """
+    def maxSlidingWindow(self, nums: list[int], k: int) -> list[int]:
         d = collections.deque() # 维护一个非严格的递减的deque, [2,1,1]允许,[3,2,1]允许，[1,2]不允许
         # 每次d[0]就是window内最大的数的idx，注意deque里面存的是index
         # 仔细思考，当我们在循环便利这个nums时, d表示的是在当前window[i-k, i - 1]，这k个值面对即将加入的i，需要做什么
