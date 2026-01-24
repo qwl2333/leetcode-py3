@@ -15,15 +15,17 @@ class Solution:
             if not root:
                 return
             
+            if target == root.val:
+                self.res = root.val
+                self.dist = 0
+                return
+
             if self.dist > abs(root.val - target):
                 self.dist = abs(root.val - target)
                 self.res = root.val
 
             if self.dist == abs(root.val - target):
                 self.res = min(self.res, root.val)
-
-            if target == root.val:
-                return
 
             if target > root.val:
                 search_target(root.right)
@@ -33,7 +35,8 @@ class Solution:
             
         search_target(root)
         return self.res
-
+    
+    # 我更喜欢这个解法
     def closestValueIterative(self, root: Optional[TreeNode], target: float) -> int:
         dist = float('inf')
         nearest_node = 0
