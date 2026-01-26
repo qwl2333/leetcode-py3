@@ -1,4 +1,4 @@
-# lc 286
+# lc 286 和 lc 317不同，317是到所有源点距离之和, 286是到最近源点的距离
 from collections import deque
 class Solution:
     # multi resource BFS time space O(n*m)
