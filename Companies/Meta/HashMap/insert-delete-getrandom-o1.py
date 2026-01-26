@@ -25,7 +25,7 @@ class RandomizedSet:
         self.data_idx_map[last_value] = idx_to_val
 
         self.data.pop()
-        del self.data_idx_map[val]
+        self.data_idx_map.pop(val)
 
         return True
 
