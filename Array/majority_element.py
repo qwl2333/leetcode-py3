@@ -2,6 +2,9 @@
 import math
 
 class Solution:
+    # 这题先决条件就是majority element一定存在
+
+    # sc O(1)的解法
     # Moore Voting Algorithm
     # The intuition behind the Moore's Voting Algorithm is based on the fact that if there is a majority element in an array, 
     # it will always remain in the lead, 
@@ -21,7 +24,8 @@ class Solution:
                 count -= 1
         
         return candidate
-    
+
+    # 正常人第一反应肯定是dict记录数字出现的次数
     def majority_element2(self, nums: list[int]) -> int:
         n = len(nums)
         limit = math.floor(n / 2)
