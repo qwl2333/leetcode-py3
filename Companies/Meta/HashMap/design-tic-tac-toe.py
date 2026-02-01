@@ -1,3 +1,4 @@
+# lc 348
 class TicTacToe:
 
     def __init__(self, n: int):
