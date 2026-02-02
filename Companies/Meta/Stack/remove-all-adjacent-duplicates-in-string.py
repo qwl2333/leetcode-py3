@@ -1,4 +1,4 @@
-# lc 1047
+# lc 1047 和 lc 1209类似
 class Solution:
     # ai的sol就是比较elegant
     def removeDuplicates(self, s: str) -> str:
